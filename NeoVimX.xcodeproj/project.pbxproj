@@ -1,0 +1,482 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F8EC5303193E63F80011E533 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8EC5302193E63F80011E533 /* Cocoa.framework */; };
+		F8EC530D193E63F80011E533 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8EC530B193E63F80011E533 /* InfoPlist.strings */; };
+		F8EC530F193E63F80011E533 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8EC530E193E63F80011E533 /* main.m */; };
+		F8EC5313193E63F80011E533 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F8EC5311193E63F80011E533 /* Credits.rtf */; };
+		F8EC5316193E63F80011E533 /* NVMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F8EC5315193E63F80011E533 /* NVMAppDelegate.m */; };
+		F8EC5319193E63F90011E533 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8EC5317193E63F90011E533 /* MainMenu.xib */; };
+		F8EC531B193E63F90011E533 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8EC531A193E63F90011E533 /* Images.xcassets */; };
+		F8EC5322193E63F90011E533 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8EC5321193E63F90011E533 /* XCTest.framework */; };
+		F8EC5323193E63F90011E533 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8EC5302193E63F80011E533 /* Cocoa.framework */; };
+		F8EC532B193E63F90011E533 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8EC5329193E63F90011E533 /* InfoPlist.strings */; };
+		F8EC532D193E63F90011E533 /* NeoVimXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F8EC532C193E63F90011E533 /* NeoVimXTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F8EC5324193E63F90011E533 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8EC52F7193E63F80011E533 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8EC52FE193E63F80011E533;
+			remoteInfo = NeoVimX;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F8EC52FF193E63F80011E533 /* NeoVimX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeoVimX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8EC5302193E63F80011E533 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F8EC5305193E63F80011E533 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		F8EC5306193E63F80011E533 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		F8EC5307193E63F80011E533 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F8EC530A193E63F80011E533 /* NeoVimX-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NeoVimX-Info.plist"; sourceTree = "<group>"; };
+		F8EC530C193E63F80011E533 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F8EC530E193E63F80011E533 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F8EC5310193E63F80011E533 /* NeoVimX-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NeoVimX-Prefix.pch"; sourceTree = "<group>"; };
+		F8EC5312193E63F80011E533 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		F8EC5314193E63F80011E533 /* NVMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVMAppDelegate.h; sourceTree = "<group>"; };
+		F8EC5315193E63F80011E533 /* NVMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVMAppDelegate.m; sourceTree = "<group>"; };
+		F8EC5318193E63F90011E533 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		F8EC531A193E63F90011E533 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F8EC5320193E63F90011E533 /* NeoVimXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeoVimXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8EC5321193E63F90011E533 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		F8EC5328193E63F90011E533 /* NeoVimXTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NeoVimXTests-Info.plist"; sourceTree = "<group>"; };
+		F8EC532A193E63F90011E533 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F8EC532C193E63F90011E533 /* NeoVimXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NeoVimXTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F8EC52FC193E63F80011E533 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8EC5303193E63F80011E533 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8EC531D193E63F90011E533 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8EC5323193E63F90011E533 /* Cocoa.framework in Frameworks */,
+				F8EC5322193E63F90011E533 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F8EC52F6193E63F80011E533 = {
+			isa = PBXGroup;
+			children = (
+				F8EC5308193E63F80011E533 /* NeoVimX */,
+				F8EC5326193E63F90011E533 /* NeoVimXTests */,
+				F8EC5301193E63F80011E533 /* Frameworks */,
+				F8EC5300193E63F80011E533 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F8EC5300193E63F80011E533 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F8EC52FF193E63F80011E533 /* NeoVimX.app */,
+				F8EC5320193E63F90011E533 /* NeoVimXTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F8EC5301193E63F80011E533 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F8EC5302193E63F80011E533 /* Cocoa.framework */,
+				F8EC5321193E63F90011E533 /* XCTest.framework */,
+				F8EC5304193E63F80011E533 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F8EC5304193E63F80011E533 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F8EC5305193E63F80011E533 /* AppKit.framework */,
+				F8EC5306193E63F80011E533 /* CoreData.framework */,
+				F8EC5307193E63F80011E533 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		F8EC5308193E63F80011E533 /* NeoVimX */ = {
+			isa = PBXGroup;
+			children = (
+				F8EC5314193E63F80011E533 /* NVMAppDelegate.h */,
+				F8EC5315193E63F80011E533 /* NVMAppDelegate.m */,
+				F8EC5317193E63F90011E533 /* MainMenu.xib */,
+				F8EC531A193E63F90011E533 /* Images.xcassets */,
+				F8EC5309193E63F80011E533 /* Supporting Files */,
+			);
+			path = NeoVimX;
+			sourceTree = "<group>";
+		};
+		F8EC5309193E63F80011E533 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F8EC530A193E63F80011E533 /* NeoVimX-Info.plist */,
+				F8EC530B193E63F80011E533 /* InfoPlist.strings */,
+				F8EC530E193E63F80011E533 /* main.m */,
+				F8EC5310193E63F80011E533 /* NeoVimX-Prefix.pch */,
+				F8EC5311193E63F80011E533 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F8EC5326193E63F90011E533 /* NeoVimXTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8EC532C193E63F90011E533 /* NeoVimXTests.m */,
+				F8EC5327193E63F90011E533 /* Supporting Files */,
+			);
+			path = NeoVimXTests;
+			sourceTree = "<group>";
+		};
+		F8EC5327193E63F90011E533 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F8EC5328193E63F90011E533 /* NeoVimXTests-Info.plist */,
+				F8EC5329193E63F90011E533 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F8EC52FE193E63F80011E533 /* NeoVimX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8EC5330193E63F90011E533 /* Build configuration list for PBXNativeTarget "NeoVimX" */;
+			buildPhases = (
+				F8EC52FB193E63F80011E533 /* Sources */,
+				F8EC52FC193E63F80011E533 /* Frameworks */,
+				F8EC52FD193E63F80011E533 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NeoVimX;
+			productName = NeoVimX;
+			productReference = F8EC52FF193E63F80011E533 /* NeoVimX.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F8EC531F193E63F90011E533 /* NeoVimXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8EC5333193E63F90011E533 /* Build configuration list for PBXNativeTarget "NeoVimXTests" */;
+			buildPhases = (
+				F8EC531C193E63F90011E533 /* Sources */,
+				F8EC531D193E63F90011E533 /* Frameworks */,
+				F8EC531E193E63F90011E533 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F8EC5325193E63F90011E533 /* PBXTargetDependency */,
+			);
+			name = NeoVimXTests;
+			productName = NeoVimXTests;
+			productReference = F8EC5320193E63F90011E533 /* NeoVimXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F8EC52F7193E63F80011E533 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = NVM;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = neovim;
+				TargetAttributes = {
+					F8EC531F193E63F90011E533 = {
+						TestTargetID = F8EC52FE193E63F80011E533;
+					};
+				};
+			};
+			buildConfigurationList = F8EC52FA193E63F80011E533 /* Build configuration list for PBXProject "NeoVimX" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F8EC52F6193E63F80011E533;
+			productRefGroup = F8EC5300193E63F80011E533 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F8EC52FE193E63F80011E533 /* NeoVimX */,
+				F8EC531F193E63F90011E533 /* NeoVimXTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F8EC52FD193E63F80011E533 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8EC530D193E63F80011E533 /* InfoPlist.strings in Resources */,
+				F8EC531B193E63F90011E533 /* Images.xcassets in Resources */,
+				F8EC5313193E63F80011E533 /* Credits.rtf in Resources */,
+				F8EC5319193E63F90011E533 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8EC531E193E63F90011E533 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8EC532B193E63F90011E533 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F8EC52FB193E63F80011E533 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8EC5316193E63F80011E533 /* NVMAppDelegate.m in Sources */,
+				F8EC530F193E63F80011E533 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8EC531C193E63F90011E533 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8EC532D193E63F90011E533 /* NeoVimXTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F8EC5325193E63F90011E533 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8EC52FE193E63F80011E533 /* NeoVimX */;
+			targetProxy = F8EC5324193E63F90011E533 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F8EC530B193E63F80011E533 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8EC530C193E63F80011E533 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F8EC5311193E63F80011E533 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8EC5312193E63F80011E533 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		F8EC5317193E63F90011E533 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8EC5318193E63F90011E533 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		F8EC5329193E63F90011E533 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8EC532A193E63F90011E533 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F8EC532E193E63F90011E533 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F8EC532F193E63F90011E533 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F8EC5331193E63F90011E533 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NeoVimX/NeoVimX-Prefix.pch";
+				INFOPLIST_FILE = "NeoVimX/NeoVimX-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F8EC5332193E63F90011E533 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NeoVimX/NeoVimX-Prefix.pch";
+				INFOPLIST_FILE = "NeoVimX/NeoVimX-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		F8EC5334193E63F90011E533 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NeoVimX.app/Contents/MacOS/NeoVimX";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NeoVimX/NeoVimX-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "NeoVimXTests/NeoVimXTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		F8EC5335193E63F90011E533 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NeoVimX.app/Contents/MacOS/NeoVimX";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NeoVimX/NeoVimX-Prefix.pch";
+				INFOPLIST_FILE = "NeoVimXTests/NeoVimXTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F8EC52FA193E63F80011E533 /* Build configuration list for PBXProject "NeoVimX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8EC532E193E63F90011E533 /* Debug */,
+				F8EC532F193E63F90011E533 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8EC5330193E63F90011E533 /* Build configuration list for PBXNativeTarget "NeoVimX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8EC5331193E63F90011E533 /* Debug */,
+				F8EC5332193E63F90011E533 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F8EC5333193E63F90011E533 /* Build configuration list for PBXNativeTarget "NeoVimXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8EC5334193E63F90011E533 /* Debug */,
+				F8EC5335193E63F90011E533 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F8EC52F7193E63F80011E533 /* Project object */;
+}
