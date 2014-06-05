@@ -19,6 +19,7 @@
 		F89ECABE193F8A940056B5FD /* NSData+MessagePack.m in Sources */ = {isa = PBXBuildFile; fileRef = F89ECAB1193F8A930056B5FD /* NSData+MessagePack.m */; };
 		F89ECABF193F8A940056B5FD /* NSDictionary+MessagePack.m in Sources */ = {isa = PBXBuildFile; fileRef = F89ECAB3193F8A930056B5FD /* NSDictionary+MessagePack.m */; };
 		F89ECAC0193F8A940056B5FD /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = F89ECAB4193F8A940056B5FD /* readme.md */; };
+		F89ECAC31940A8790056B5FD /* NVMClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F89ECAC21940A8790056B5FD /* NVMClient.m */; };
 		F8EC5303193E63F80011E533 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8EC5302193E63F80011E533 /* Cocoa.framework */; };
 		F8EC530D193E63F80011E533 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8EC530B193E63F80011E533 /* InfoPlist.strings */; };
 		F8EC530F193E63F80011E533 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8EC530E193E63F80011E533 /* main.m */; };
@@ -76,6 +77,8 @@
 		F89ECAB2193F8A930056B5FD /* NSDictionary+MessagePack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MessagePack.h"; sourceTree = "<group>"; };
 		F89ECAB3193F8A930056B5FD /* NSDictionary+MessagePack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MessagePack.m"; sourceTree = "<group>"; };
 		F89ECAB4193F8A940056B5FD /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.md; sourceTree = "<group>"; };
+		F89ECAC11940A8790056B5FD /* NVMClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVMClient.h; sourceTree = "<group>"; };
+		F89ECAC21940A8790056B5FD /* NVMClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVMClient.m; sourceTree = "<group>"; };
 		F8EC52FF193E63F80011E533 /* NeoVimX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeoVimX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8EC5302193E63F80011E533 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F8EC5305193E63F80011E533 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -182,6 +185,15 @@
 			path = msgpack;
 			sourceTree = "<group>";
 		};
+		F89ECAC41940A8830056B5FD /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				F89ECAC11940A8790056B5FD /* NVMClient.h */,
+				F89ECAC21940A8790056B5FD /* NVMClient.m */,
+			);
+			name = Api;
+			sourceTree = "<group>";
+		};
 		F8EC52F6193E63F80011E533 = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +237,7 @@
 		F8EC5308193E63F80011E533 /* NeoVimX */ = {
 			isa = PBXGroup;
 			children = (
+				F89ECAC41940A8830056B5FD /* Api */,
 				F8EC5314193E63F80011E533 /* NVMAppDelegate.h */,
 				F8EC5315193E63F80011E533 /* NVMAppDelegate.m */,
 				F8EC5317193E63F90011E533 /* MainMenu.xib */,
@@ -372,6 +385,7 @@
 				F89ECABE193F8A940056B5FD /* NSData+MessagePack.m in Sources */,
 				F89ECABF193F8A940056B5FD /* NSDictionary+MessagePack.m in Sources */,
 				F89ECABC193F8A940056B5FD /* zone.c in Sources */,
+				F89ECAC31940A8790056B5FD /* NVMClient.m in Sources */,
 				F8EC530F193E63F80011E533 /* main.m in Sources */,
 				F89ECABD193F8A940056B5FD /* NSArray+MessagePack.m in Sources */,
 				F89ECAB8193F8A940056B5FD /* objectc.c in Sources */,
