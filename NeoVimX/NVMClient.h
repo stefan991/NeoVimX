@@ -19,10 +19,10 @@ typedef void (^NVMCallback)(id error, id result);
 - (void)discoverApi:(NVMCallback)callback;
 
 - (void)callMethod:(NSString *)methodName
-			params:(NSArray *)params
-		  callback:(NVMCallback)callback;
+            params:(NSArray *)params
+          callback:(NVMCallback)callback;
 
 - (void)subscribeEvent:(NSString *)eventName
-			  callback:(NVMCallback)callback;
+              callback:(NVMCallback)callback;
 
 @end
