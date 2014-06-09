@@ -10,7 +10,22 @@
 #import "NVMClient.h"
 
 
+@interface NVMAppDelegate ()
+
+@property NSMutableDictionary *attributesCache;
+
+@end
+
 @implementation NVMAppDelegate
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.attributesCache = [NSMutableDictionary new];
+    }
+    return self;
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -36,6 +51,39 @@
             }
             [updatedLine appendString:@"\n"];
             [self.textView.textStorage replaceCharactersInRange:lineRange withString:updatedLine];
+            NSRange newRange = NSMakeRange(lineRange.location, updatedLine.length);
+            // Remove Attributes
+            [self.textView.textStorage removeAttribute:NSForegroundColorAttributeName range:newRange];
+            [self.textView.textStorage removeAttribute:NSBackgroundColorAttributeName range:newRange];
+
+            NSDictionary *attributes = result[@"attributes"];
+            for (NSString *attrName in attributes) {
+                // XXX getting non UTF8 attribute name
+                if ([attrName isKindOfClass:[NSData class]]) {
+                    NSLog(@"Data as attribute: %@", attrName);
+                    continue;
+                }
+                NSDictionary *textAttributes = [self getAttributesForName:attrName];
+                for (id attrPosition in attributes[attrName]) {
+                    int startInt;
+                    int endInt;
+                    if ([attrPosition isKindOfClass:[NSNumber class]]) {
+                        startInt = ((NSNumber *)attrPosition).intValue;
+                        endInt = startInt + 1;
+                    } else {
+                        NSArray *attPositionArray = attrPosition;
+                        NSNumber *start = attPositionArray[0];
+                        NSNumber *end = attPositionArray[1];
+                        startInt = start.intValue;
+                        endInt = end.intValue;
+                    }
+                    NSRange attrRange =
+                        NSMakeRange(lineRange.location + startInt,
+                                    endInt - startInt);
+                    [self.textView.textStorage setAttributes:textAttributes
+                                                       range:attrRange];
+                }
+            }
         }];
 
         [self.client subscribeEvent:@"redraw:insert_line" callback:^(id error, id result) {
@@ -44,7 +92,9 @@
             NSNumber *count = result[@"count"];
             for (int i = 0; i < count.intValue; i++) {
                 NSRange lineRange = [self getRangeForLine:row.intValue + 1];
-                NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"\n"];
+                NSAttributedString *attrString =
+                    [[NSAttributedString alloc] initWithString:@"\n"
+                                                    attributes:self.baseAttributes];
                 [self.textView.textStorage insertAttributedString:attrString atIndex:lineRange.location];
                 [self.textView setNeedsDisplay:YES];
             }
@@ -135,6 +185,67 @@
     }
 
     return range;
+}
+
+- (NSDictionary *)getAttributesForName:(NSString *)name
+{
+    NSDictionary *attributes = self.attributesCache[name];
+    if (attributes) {
+        return attributes;
+    }
+    NSString *prefix = [name substringToIndex:2];
+    if ([prefix isEqualToString:@"fg"]
+        || [prefix isEqualToString:@"bg"]) {
+
+        if (name.length < 10) {
+            NSLog(@"Attribute name to short: %@", name);
+            return [self.baseAttributes copy];
+        }
+        NSString *colorStr = [name substringWithRange:NSMakeRange(4, 6)];
+        NSColor *color = [NVMAppDelegate colorWithHexColorString:colorStr];
+        if ([prefix isEqualToString:@"fg"]) {
+            NSMutableDictionary *attributesMut =
+                [self.baseAttributes mutableCopy];
+            attributesMut[NSForegroundColorAttributeName] = color;
+            self.attributesCache[name] = attributesMut;
+            return [attributesMut copy];
+        }
+        if ([prefix isEqualToString:@"bg"]) {
+            NSMutableDictionary *attributesMut =
+                [self.baseAttributes mutableCopy];
+            attributesMut[NSBackgroundColorAttributeName] = color;
+            self.attributesCache[name] = attributesMut;
+            return [attributesMut copy];
+        }
+    }
+
+    NSLog(@"unknown attribute: %@", name);
+
+    return [self.baseAttributes copy];
+}
+
++ (NSColor*)colorWithHexColorString:(NSString*)inColorString
+{
+    // from http://stackoverflow.com/a/8697241
+    NSColor* result = nil;
+    unsigned colorCode = 0;
+    unsigned char redByte, greenByte, blueByte;
+
+    if (nil != inColorString)
+    {
+        NSScanner* scanner = [NSScanner scannerWithString:inColorString];
+        (void) [scanner scanHexInt:&colorCode]; // ignore error
+    }
+    redByte = (unsigned char)(colorCode >> 16);
+    greenByte = (unsigned char)(colorCode >> 8);
+    blueByte = (unsigned char)(colorCode); // masks off high bits
+
+    result = [NSColor
+              colorWithCalibratedRed:(CGFloat)redByte / 0xff
+              green:(CGFloat)greenByte / 0xff
+              blue:(CGFloat)blueByte / 0xff
+              alpha:1.0];
+    return result;
 }
 
 @end
