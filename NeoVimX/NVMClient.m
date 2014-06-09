@@ -23,6 +23,7 @@
 @property int channelID;
 @property int nextRequestID;
 @property (strong) NSMutableDictionary *callbacks;
+@property (strong) NSMutableDictionary *eventCallbacks;
 @property (strong) NSDictionary *apiClasses;
 @property (strong) NSDictionary *apiFunctions;
 
@@ -43,6 +44,7 @@
 		self.channelID = 0;
 		self.nextRequestID = 0;
 		self.callbacks = [NSMutableDictionary new];
+		self.eventCallbacks = [NSMutableDictionary new];
 		self.apiClasses = nil;
 		self.apiFunctions = nil;
 	}
@@ -114,6 +116,24 @@
 	});
 }
 
+- (void)subscribeEvent:(NSString *)eventName
+			  callback:(NVMCallback)callback
+{
+	dispatch_async(self.internalQueue, ^{
+		NSMutableArray *callbacks = self.eventCallbacks[eventName];
+		if (callbacks) {
+			[callbacks addObject:callback];
+		} else {
+			[self callMethod:@"vim_subscribe"
+					  params:@[eventName]
+					callback:^(id error, id result) {}];
+
+			callbacks = [NSMutableArray arrayWithObject:callback];
+			self.eventCallbacks[eventName] = callbacks;
+		}
+	});
+}
+
 - (void)callMethodID:(int)methodID
 			  params:(NSArray *)params
 			callback:(NVMCallback)callback
@@ -162,7 +182,17 @@
 		}
 	}
 	if ([type isEqualToNumber:@(2)]) {  // notification
-		// TODO(stefan991): implement notifications
+		NSString *eventName = message[1];
+		id data = message[2];
+		NSMutableArray *callbacks = self.eventCallbacks[eventName];
+		if (callbacks) {
+			NSArray *callbacksCopy = [callbacks copy];
+			dispatch_async(self.callbackQueue, ^{
+				for (NVMCallback callback in callbacksCopy) {
+					callback(nil, data);
+				}
+			});
+		}
 	}
 }
 

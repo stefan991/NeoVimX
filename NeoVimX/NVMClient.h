@@ -22,4 +22,7 @@ typedef void (^NVMCallback)(id error, id result);
 			params:(NSArray *)params
 		  callback:(NVMCallback)callback;
 
+- (void)subscribeEvent:(NSString *)eventName
+			  callback:(NVMCallback)callback;
+
 @end
