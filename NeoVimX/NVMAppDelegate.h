@@ -13,6 +13,8 @@
 @interface NVMAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+@property (unsafe_unretained) IBOutlet NSTextView *textView;
+@property (retain) NSDictionary *baseAttributes;
 
 @property (retain) NVMClient *client;
 
