@@ -9,12 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 @class NVMClient;
+@class NVMTextView;
 
 @interface NVMAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property (unsafe_unretained) IBOutlet NSTextView *textView;
-@property (retain) NSDictionary *baseAttributes;
+@property (unsafe_unretained) IBOutlet NVMTextView *textView;
 
 @property (retain) NVMClient *client;
 

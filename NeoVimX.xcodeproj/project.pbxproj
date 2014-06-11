@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F84F8D731948DC0400702646 /* NSColor+NeoVimX.m in Sources */ = {isa = PBXBuildFile; fileRef = F84F8D721948DC0400702646 /* NSColor+NeoVimX.m */; };
+		F84F8D771948E52B00702646 /* NVMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F84F8D761948E52B00702646 /* NVMTextView.m */; };
 		F89ECAB5193F8A940056B5FD /* MessagePackPacker.m in Sources */ = {isa = PBXBuildFile; fileRef = F89ECA94193F8A930056B5FD /* MessagePackPacker.m */; };
 		F89ECAB6193F8A940056B5FD /* MessagePackParser+Streaming.m in Sources */ = {isa = PBXBuildFile; fileRef = F89ECA96193F8A930056B5FD /* MessagePackParser+Streaming.m */; };
 		F89ECAB7193F8A940056B5FD /* MessagePackParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F89ECA98193F8A930056B5FD /* MessagePackParser.m */; };
@@ -47,6 +48,8 @@
 /* Begin PBXFileReference section */
 		F84F8D711948DC0400702646 /* NSColor+NeoVimX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+NeoVimX.h"; sourceTree = "<group>"; };
 		F84F8D721948DC0400702646 /* NSColor+NeoVimX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+NeoVimX.m"; sourceTree = "<group>"; };
+		F84F8D751948E52B00702646 /* NVMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVMTextView.h; sourceTree = "<group>"; };
+		F84F8D761948E52B00702646 /* NVMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVMTextView.m; sourceTree = "<group>"; };
 		F89ECA92193F8A930056B5FD /* MessagePack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePack.h; sourceTree = "<group>"; };
 		F89ECA93193F8A930056B5FD /* MessagePackPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePackPacker.h; sourceTree = "<group>"; };
 		F89ECA94193F8A930056B5FD /* MessagePackPacker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagePackPacker.m; sourceTree = "<group>"; };
@@ -131,6 +134,15 @@
 				F84F8D721948DC0400702646 /* NSColor+NeoVimX.m */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		F84F8D741948E4A600702646 /* Gui */ = {
+			isa = PBXGroup;
+			children = (
+				F84F8D751948E52B00702646 /* NVMTextView.h */,
+				F84F8D761948E52B00702646 /* NVMTextView.m */,
+			);
+			name = Gui;
 			sourceTree = "<group>";
 		};
 		F89ECA90193F8A930056B5FD /* External */ = {
@@ -251,6 +263,7 @@
 			children = (
 				F84F8D6D1948DB2000702646 /* Categories */,
 				F89ECAC41940A8830056B5FD /* Api */,
+				F84F8D741948E4A600702646 /* Gui */,
 				F8EC5314193E63F80011E533 /* NVMAppDelegate.h */,
 				F8EC5315193E63F80011E533 /* NVMAppDelegate.m */,
 				F8EC5317193E63F90011E533 /* MainMenu.xib */,
@@ -399,6 +412,7 @@
 				F89ECABF193F8A940056B5FD /* NSDictionary+MessagePack.m in Sources */,
 				F89ECABC193F8A940056B5FD /* zone.c in Sources */,
 				F89ECAC31940A8790056B5FD /* NVMClient.m in Sources */,
+				F84F8D771948E52B00702646 /* NVMTextView.m in Sources */,
 				F8EC530F193E63F80011E533 /* main.m in Sources */,
 				F89ECABD193F8A940056B5FD /* NSArray+MessagePack.m in Sources */,
 				F84F8D731948DC0400702646 /* NSColor+NeoVimX.m in Sources */,
