@@ -7,35 +7,22 @@
 //
 
 #import "NVMAppDelegate.h"
-#import "NVMClient.h"
-#import "NVMTextView.h"
-#import "NSColor+NeoVimX.h"
+#import "NVMClientWindowController.h"
+
+
+@interface NVMAppDelegate ()
+
+@property (strong) NVMClientWindowController *clientWindowController;
+
+@end
 
 
 @implementation NVMAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-
-    self.client = [NVMClient new];
-    [self.client connectTo:@"/tmp/neovim"];
-
-    [self.client discoverApi:^(id error, id result) {
-
-        [self.textView connectToClient:self.client];
-
-        [self.client subscribeEvent:@"redraw:layout" callback:^(id error, id result) {
-            NSLog(@"redraw:layout: %@", result);
-        }];
-
-        [self.client subscribeEvent:@"redraw:tabs" callback:^(id error, id result) {
-            NSLog(@"redraw:tabs: %@", result);
-        }];
-
-        [self.client callMethod:@"vim_request_screen"
-                         params:nil
-                       callback:^(id error, id result) { }];
-    }];
-
+    self.clientWindowController = [NVMClientWindowController new];
+    [self.clientWindowController showWindow:nil];
 }
+
 @end
