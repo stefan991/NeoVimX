@@ -53,8 +53,8 @@
             [self.textView.textStorage replaceCharactersInRange:lineRange withString:updatedLine];
             NSRange newRange = NSMakeRange(lineRange.location, updatedLine.length);
             // Remove Attributes
-            [self.textView.textStorage removeAttribute:NSForegroundColorAttributeName range:newRange];
-            [self.textView.textStorage removeAttribute:NSBackgroundColorAttributeName range:newRange];
+            [self.textView.textStorage setAttributes:self.baseAttributes
+                                               range:newRange];
 
             NSDictionary *attributes = result[@"attributes"];
             for (NSString *attrName in attributes) {
@@ -217,6 +217,27 @@
             self.attributesCache[name] = attributesMut;
             return [attributesMut copy];
         }
+    }
+
+    if ([name isEqualToString:@"bold"]) {
+        NSMutableDictionary *attributesMut = [self.baseAttributes mutableCopy];
+        attributesMut[NSFontAttributeName] =
+            [NSFont fontWithName:@"Menlo-Bold" size:13.0];
+        return [attributesMut copy];
+    }
+
+    // TODO(stefan991): Handle bold and italic at the same time
+    if ([name isEqualToString:@"italic"]) {
+        NSMutableDictionary *attributesMut = [self.baseAttributes mutableCopy];
+        attributesMut[NSFontAttributeName] =
+            [NSFont fontWithName:@"Menlo-Italic" size:13.0];
+        return [attributesMut copy];
+    }
+
+    if ([name isEqualToString:@"underline"]) {
+        NSMutableDictionary *attributesMut = [self.baseAttributes mutableCopy];
+        attributesMut[NSUnderlineStyleAttributeName] = @(NSUnderlineStyleSingle);
+        return [attributesMut copy];
     }
 
     NSLog(@"unknown attribute: %@", name);
