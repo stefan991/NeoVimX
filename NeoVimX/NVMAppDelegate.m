@@ -147,6 +147,36 @@
             NSLog(@"redraw:tabs: %@", result);
         }];
 
+        [self.client subscribeEvent:@"redraw:foreground_color" callback:^(id error, id result) {
+            // NSLog(@"redraw:foreground_color: %@", result);
+            NSString *colorSharp = result[@"color"];
+            NSColor *color;
+            if ([colorSharp length] == 7) {
+                color = [NVMAppDelegate colorWithHexColorString:
+                            [colorSharp substringFromIndex:1]];
+            } else {
+                color = [NSColor blackColor];
+            }
+            NSMutableDictionary *newbaseAttributes =
+                [self.baseAttributes mutableCopy];
+            newbaseAttributes[NSForegroundColorAttributeName] = color;
+            self.baseAttributes = [newbaseAttributes copy];
+        }];
+
+        [self.client subscribeEvent:@"redraw:background_color" callback:^(id error, id result) {
+            // NSLog(@"redraw:background_color: %@", result);
+            NSString *colorSharp = result[@"color"];
+            NSColor *color;
+            if ([colorSharp length] == 7) {
+                color = [NVMAppDelegate colorWithHexColorString:
+                            [colorSharp substringFromIndex:1]];
+            } else {
+                color = [NSColor whiteColor];
+            }
+            [self.textView setBackgroundColor:color];
+        }];
+
+
         [self.client callMethod:@"vim_request_screen"
                          params:nil
                        callback:^(id error, id result) {
@@ -255,7 +285,9 @@
     if (nil != inColorString)
     {
         NSScanner* scanner = [NSScanner scannerWithString:inColorString];
-        (void) [scanner scanHexInt:&colorCode]; // ignore error
+        if(![scanner scanHexInt:&colorCode]) {
+            NSLog(@"attribute j hex color: %@", inColorString);
+        }
     }
     redByte = (unsigned char)(colorCode >> 16);
     greenByte = (unsigned char)(colorCode >> 8);
