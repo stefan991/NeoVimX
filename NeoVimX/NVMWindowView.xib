@@ -6,9 +6,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NVMWindowViewController">
             <connections>
-                <outlet property="textView" destination="nW7-4A-HN1" id="MIi-Dd-qyt"/>
-                <outlet property="textViewHeight" destination="chw-wQ-Zlr" id="L8a-x3-CVZ"/>
-                <outlet property="textViewWidth" destination="A1Z-LY-Ovu" id="Ran-BM-CZg"/>
+                <outlet property="contentView" destination="V6z-eA-UhE" id="ktv-Xl-5ob"/>
+                <outlet property="textViewHeight" destination="sWm-7J-bXd" id="LH8-ZC-wFo"/>
+                <outlet property="textViewWidth" destination="kQX-lu-fNd" id="Ewd-wW-QxO"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -36,49 +36,24 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zo4-JB-tmo">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="V6z-eA-UhE">
                     <rect key="frame" x="0.0" y="20" width="401" height="258"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <clipView key="contentView" id="pkC-CC-X4m">
-                        <rect key="frame" x="1" y="1" width="399" height="256"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView editable="NO" importsGraphics="NO" findStyle="panel" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="nW7-4A-HN1" customClass="NVMTextView">
-                                <rect key="frame" x="0.0" y="0.0" width="399" height="256"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="399" height="256"/>
-                                <size key="maxSize" width="463" height="10000000"/>
-                                <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="399" height="256"/>
-                                <size key="maxSize" width="463" height="10000000"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </clipView>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="401" id="A1Z-LY-Ovu"/>
-                        <constraint firstAttribute="height" constant="258" id="chw-wQ-Zlr"/>
+                        <constraint firstAttribute="width" constant="401" id="kQX-lu-fNd"/>
+                        <constraint firstAttribute="height" constant="258" id="sWm-7J-bXd"/>
                     </constraints>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="6H6-2C-cYD">
-                        <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="RQN-hp-hmD">
-                        <rect key="frame" x="384" y="1" width="16" height="256"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                </scrollView>
+                </customView>
             </subviews>
             <constraints>
                 <constraint firstItem="qNL-sJ-vnc" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="2" id="4LY-PV-PO9"/>
-                <constraint firstItem="Zo4-JB-tmo" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="8bK-aq-2Rt"/>
                 <constraint firstAttribute="trailing" secondItem="xvw-5V-WHc" secondAttribute="trailing" id="8ix-97-wrG"/>
-                <constraint firstItem="Zo4-JB-tmo" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="Dbb-eZ-X5H"/>
-                <constraint firstItem="qNL-sJ-vnc" firstAttribute="top" secondItem="Zo4-JB-tmo" secondAttribute="bottom" constant="3" id="f0K-Ap-3Pr"/>
+                <constraint firstItem="V6z-eA-UhE" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="FgQ-aX-h12"/>
+                <constraint firstItem="V6z-eA-UhE" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="U2D-Kh-mT3"/>
+                <constraint firstAttribute="trailing" secondItem="V6z-eA-UhE" secondAttribute="trailing" id="Vpa-dR-XMH"/>
                 <constraint firstAttribute="bottom" secondItem="qNL-sJ-vnc" secondAttribute="bottom" id="iGO-7B-hUh"/>
+                <constraint firstItem="qNL-sJ-vnc" firstAttribute="top" secondItem="V6z-eA-UhE" secondAttribute="bottom" constant="3" id="p7b-du-snJ"/>
                 <constraint firstAttribute="bottom" secondItem="xvw-5V-WHc" secondAttribute="bottom" id="qMt-QU-aAH"/>
-                <constraint firstAttribute="trailing" secondItem="Zo4-JB-tmo" secondAttribute="trailing" id="teY-8E-ioH"/>
             </constraints>
         </customView>
     </objects>

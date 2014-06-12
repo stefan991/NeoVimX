@@ -20,16 +20,30 @@
 
 @implementation NVMTextView
 
+- (id)initWithFrame:(NSRect)frameRect
+{
+    self = [super initWithFrame:frameRect];
+    if (self) {
+        [self initCommon];
+    }
+    return self;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.string = @"";
-        NSFont *font = [NSFont fontWithName:@"Menlo" size:13.0];
-        self.baseAttributes = @{NSFontAttributeName: font};
-        self.attributesCache = [NSMutableDictionary new];
+        [self initCommon];
     }
     return self;
+}
+
+- (void)initCommon
+{
+    self.string = @"";
+    NSFont *font = [NSFont fontWithName:@"Menlo" size:13.0];
+    self.baseAttributes = @{NSFontAttributeName: font};
+    self.attributesCache = [NSMutableDictionary new];
 }
 
 - (void)redraw_foreground_color:(NSDictionary *)event_data

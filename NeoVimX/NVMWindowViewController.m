@@ -25,13 +25,33 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    NVMTextView *textView =
+        [[NVMTextView alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
+    self.textView = textView;
+    textView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.contentView addSubview:textView];
+    NSDictionary *views = NSDictionaryOfVariableBindings(textView);
+    [self.contentView addConstraints:
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[textView]|"
+                                                options:0
+                                                metrics:nil
+                                                  views:views]];
+    [self.contentView addConstraints:
+        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[textView]|"
+                                                options:0
+                                                metrics:nil
+                                                  views:views]];
+}
+
 - (void)redraw_layout:(NSDictionary *)event_data
 {
     NSNumber *height = event_data[@"height"];
     NSNumber *width = event_data[@"width"];
     NSSize cellSize = self.textView.cellSize;
-    self.textViewHeight.constant = height.intValue * cellSize.height + 2;
-    self.textViewWidth.constant = width.intValue * cellSize.width + 2;
+    self.textViewHeight.constant = height.intValue * cellSize.height;
+    self.textViewWidth.constant = width.intValue * cellSize.width;
 }
 
 @end
