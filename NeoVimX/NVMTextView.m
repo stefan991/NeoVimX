@@ -8,7 +8,6 @@
 
 #import "NVMTextView.h"
 #import "NSColor+NeoVimX.h"
-#import "NVMClient.h"
 
 
 @interface NVMTextView ()
@@ -31,51 +30,6 @@
         self.attributesCache = [NSMutableDictionary new];
     }
     return self;
-}
-
-- (void)connectToClient:(NVMClient *)client
-{
-    [client subscribeEvent:@"redraw:foreground_color"
-                  callback:^(id error, id event_data) {
-        // NSLog(@"redraw:foreground_color: %@", result);
-        [self redraw_foreground_color:event_data];
-    }];
-
-    [client subscribeEvent:@"redraw:background_color"
-                  callback:^(id error, id event_data) {
-        // NSLog(@"redraw:background_color: %@", result);
-        [self redraw_background_color:event_data];
-    }];
-
-    [client subscribeEvent:@"redraw:update_line"
-                  callback:^(id error, id event_data) {
-        // NSLog(@"redraw:update_line: %@", event_data);
-        [self redraw_update_line:event_data];
-    }];
-
-    [client subscribeEvent:@"redraw:insert_line"
-                  callback:^(id error, id event_data) {
-        // NSLog(@"redraw:insert_line: %@", event_data);
-        [self redraw_insert_line:event_data];
-    }];
-
-    [client subscribeEvent:@"redraw:delete_line"
-                  callback:^(id error, id event_data) {
-        // NSLog(@"redraw:delete_line: %@", event_data);
-        [self redraw_delete_line:event_data];
-    }];
-
-    [client subscribeEvent:@"redraw:win_end"
-                  callback:^(id error, id event_data) {
-        // NSLog(@"redraw:win_end: %@", event_data);
-        [self redraw_window_end:event_data];
-    }];
-
-    [client subscribeEvent:@"redraw:cursor"
-                  callback:^(id error, id event_data) {
-        // NSLog(@"redraw:cursor: %@", event_data);
-        [self redraw_cursor:event_data];
-    }];
 }
 
 - (void)redraw_foreground_color:(NSDictionary *)event_data
@@ -201,6 +155,18 @@
     NSRange startOfLine = [self getRangeForLine:row.intValue + 1];
     NSRange range = NSMakeRange(startOfLine.location + col.intValue, 0);
     // [self.textView setSelectedRange:range];
+}
+
+- (NSSize)cellSize
+{
+    NSFont *font = self.baseAttributes[NSFontAttributeName];
+
+    float advance = [@"m" sizeWithAttributes:self.baseAttributes].width;
+    float lineHeight = [self.layoutManager defaultLineHeightForFont:font];
+    NSSize cellSize;
+    cellSize.height = lineHeight;
+    cellSize.width = ceil(advance);
+    return cellSize;
 }
 
 - (NSRange)getRangeForLine:(int)lineNumber

@@ -8,14 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class NVMTextView;
 @class NVMClient;
+@class NVMWindowViewController;
 
 
 @interface NVMClientWindowController : NSWindowController
 
-@property (unsafe_unretained) IBOutlet NVMTextView *textView;
+@property (weak) IBOutlet NSView *contentView;
 
 @property (retain) NVMClient *client;
+@property (retain) NVMWindowViewController *windowViewController;
 
 @end

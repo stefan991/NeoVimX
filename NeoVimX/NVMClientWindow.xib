@@ -6,7 +6,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NVMClientWindowController">
             <connections>
-                <outlet property="textView" destination="Awy-rR-hpW" id="cTm-kj-cSd"/>
+                <outlet property="contentView" destination="LaT-Zb-JS8" id="9zC-rN-czK"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -21,41 +21,16 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="75Z-Cs-MSx">
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="LaT-Zb-JS8">
                         <rect key="frame" x="20" y="20" width="440" height="230"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <clipView key="contentView" id="qaD-JQ-0hT">
-                            <rect key="frame" x="1" y="1" width="438" height="228"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <textView editable="NO" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="Awy-rR-hpW" customClass="NVMTextView">
-                                    <rect key="frame" x="0.0" y="0.0" width="438" height="228"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="438" height="228"/>
-                                    <size key="maxSize" width="463" height="10000000"/>
-                                    <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="438" height="228"/>
-                                    <size key="maxSize" width="463" height="10000000"/>
-                                </textView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="VrK-Hf-7IR">
-                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="rl2-R7-cHY">
-                            <rect key="frame" x="423" y="1" width="16" height="228"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                    </scrollView>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="75Z-Cs-MSx" secondAttribute="trailing" constant="20" id="8Jz-Hn-il6"/>
-                    <constraint firstAttribute="bottom" secondItem="75Z-Cs-MSx" secondAttribute="bottom" constant="20" id="FG6-OU-Osp"/>
-                    <constraint firstItem="75Z-Cs-MSx" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="20" id="n4v-IN-fft"/>
-                    <constraint firstItem="75Z-Cs-MSx" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" id="vDi-0x-0ps"/>
+                    <constraint firstAttribute="bottom" secondItem="LaT-Zb-JS8" secondAttribute="bottom" constant="20" id="VRN-Lo-ZCZ"/>
+                    <constraint firstItem="LaT-Zb-JS8" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="20" id="bIz-wF-SYp"/>
+                    <constraint firstAttribute="trailing" secondItem="LaT-Zb-JS8" secondAttribute="trailing" constant="20" id="gHw-Lr-yP1"/>
+                    <constraint firstItem="LaT-Zb-JS8" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" id="gys-P3-pfV"/>
                 </constraints>
             </view>
             <connections>
