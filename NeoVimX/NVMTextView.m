@@ -111,7 +111,7 @@
             NSMakeRange(lineRange.location + startInt,
                         endInt - startInt);
             [self.textStorage setAttributes:textAttributes
-                                               range:attrRange];
+                                      range:attrRange];
         }
     }
 
@@ -146,6 +146,8 @@
 {
     NSNumber *row = event_data[@"row"];
     NSNumber *endRow = event_data[@"endrow"];
+    NSAssert(row.integerValue >= 0, @"row not positive");
+    NSAssert(row.integerValue >= 0, @"endrow not positive");
     NSString *marker = event_data[@"marker"];
     // TODO(stefan991) handle fill
     for (int line = row.intValue; line < endRow.intValue; line++) {
@@ -168,7 +170,8 @@
     NSNumber *col = event_data[@"col"];
     NSRange startOfLine = [self getRangeForLine:row.intValue + 1];
     NSRange range = NSMakeRange(startOfLine.location + col.intValue, 0);
-    // [self.textView setSelectedRange:range];
+    [self.window makeFirstResponder:self];
+    [self setSelectedRange:range];
 }
 
 - (NSSize)cellSize

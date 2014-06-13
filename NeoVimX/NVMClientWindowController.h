@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 @class NVMClient;
-@class NVMWindowViewController;
 
 
 @interface NVMClientWindowController : NSWindowController
@@ -17,6 +16,5 @@
 @property (weak) IBOutlet NSView *contentView;
 
 @property (retain) NVMClient *client;
-@property (retain) NVMWindowViewController *windowViewController;
 
 @end

@@ -19,6 +19,6 @@
 @property (weak) IBOutlet NSLayoutConstraint *textViewHeight;
 @property (strong) NVMTextView *textView;
 
-- (void)redraw_layout:(NSDictionary *)event_data;
+- (void)redraw_layout:(NSDictionary *)layoutNode;
 
 @end

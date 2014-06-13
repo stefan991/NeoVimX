@@ -13,6 +13,7 @@
 		F84F8D7E1948FDB400702646 /* NVMClientWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F84F8D7C1948FDB400702646 /* NVMClientWindow.xib */; };
 		F84F8D881949ED3100702646 /* NVMWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F84F8D861949ED3100702646 /* NVMWindowViewController.m */; };
 		F84F8D891949ED3100702646 /* NVMWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F84F8D871949ED3100702646 /* NVMWindowView.xib */; };
+		F85335AD194A443A0066E309 /* NVMSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = F85335AC194A443A0066E309 /* NVMSplitView.m */; };
 		F89ECAB5193F8A940056B5FD /* MessagePackPacker.m in Sources */ = {isa = PBXBuildFile; fileRef = F89ECA94193F8A930056B5FD /* MessagePackPacker.m */; };
 		F89ECAB6193F8A940056B5FD /* MessagePackParser+Streaming.m in Sources */ = {isa = PBXBuildFile; fileRef = F89ECA96193F8A930056B5FD /* MessagePackParser+Streaming.m */; };
 		F89ECAB7193F8A940056B5FD /* MessagePackParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F89ECA98193F8A930056B5FD /* MessagePackParser.m */; };
@@ -60,6 +61,8 @@
 		F84F8D851949ED3100702646 /* NVMWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVMWindowViewController.h; sourceTree = "<group>"; };
 		F84F8D861949ED3100702646 /* NVMWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVMWindowViewController.m; sourceTree = "<group>"; };
 		F84F8D871949ED3100702646 /* NVMWindowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NVMWindowView.xib; sourceTree = "<group>"; };
+		F85335AB194A443A0066E309 /* NVMSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVMSplitView.h; sourceTree = "<group>"; };
+		F85335AC194A443A0066E309 /* NVMSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVMSplitView.m; sourceTree = "<group>"; };
 		F89ECA92193F8A930056B5FD /* MessagePack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePack.h; sourceTree = "<group>"; };
 		F89ECA93193F8A930056B5FD /* MessagePackPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePackPacker.h; sourceTree = "<group>"; };
 		F89ECA94193F8A930056B5FD /* MessagePackPacker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagePackPacker.m; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				F84F8D851949ED3100702646 /* NVMWindowViewController.h */,
 				F84F8D861949ED3100702646 /* NVMWindowViewController.m */,
 				F84F8D871949ED3100702646 /* NVMWindowView.xib */,
+				F85335AB194A443A0066E309 /* NVMSplitView.h */,
+				F85335AC194A443A0066E309 /* NVMSplitView.m */,
 			);
 			name = Gui;
 			sourceTree = "<group>";
@@ -438,6 +443,7 @@
 				F89ECAB8193F8A940056B5FD /* objectc.c in Sources */,
 				F89ECABB193F8A940056B5FD /* vrefbuffer.c in Sources */,
 				F84F8D881949ED3100702646 /* NVMWindowViewController.m in Sources */,
+				F85335AD194A443A0066E309 /* NVMSplitView.m in Sources */,
 				F89ECAB7193F8A940056B5FD /* MessagePackParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

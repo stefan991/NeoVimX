@@ -10,9 +10,12 @@
 #import "NVMClient.h"
 #import "NVMTextView.h"
 #import "NVMWindowViewController.h"
+#import "NVMSplitView.h"
 
 
 @interface NVMClientWindowController ()
+
+@property (retain) NSMutableDictionary *windowViewControllers;
 
 @end
 
@@ -23,7 +26,7 @@
 {
 	self = [super initWithWindowNibName:@"NVMClientWindow"];
     if (self) {
-        self.windowViewController = [NVMWindowViewController new];
+        self.windowViewControllers = [NSMutableDictionary new];
     }
     return self;
 }
@@ -38,69 +41,40 @@
     [self.client discoverApi:^(id error, id result) {
 
         [self.client subscribeEvent:@"redraw:foreground_color"
-                           callback:^(id error, id event_data) {
-            // NSLog(@"redraw:foreground_color: %@", result);
-            [self.windowViewController.textView  redraw_foreground_color:event_data];
+                           callback:^(id error, id eventData) {
+            [self.windowViewControllers enumerateKeysAndObjectsUsingBlock:
+                ^(id key, NVMWindowViewController *controller, BOOL *stop) {
+                [controller.textView redraw_foreground_color:eventData];
+            }];
         }];
 
         [self.client subscribeEvent:@"redraw:background_color"
-                           callback:^(id error, id event_data) {
-            // NSLog(@"redraw:background_color: %@", result);
-            [self.windowViewController.textView  redraw_background_color:event_data];
+                           callback:^(id error, id eventData) {
+            [self.windowViewControllers enumerateKeysAndObjectsUsingBlock:
+                ^(id key, NVMWindowViewController *controller, BOOL *stop) {
+                [controller.textView redraw_background_color:eventData];
+            }];
         }];
 
-        [self.client subscribeEvent:@"redraw:update_line"
-                           callback:^(id error, id event_data) {
-            // NSLog(@"redraw:update_line: %@", event_data);
-            [self.windowViewController.textView  redraw_update_line:event_data];
-        }];
+        [self subscribeTextViewEvent:@"redraw:update_line"
+                            selector:@selector(redraw_update_line:)];
 
-        [self.client subscribeEvent:@"redraw:insert_line"
-                           callback:^(id error, id event_data) {
-            // NSLog(@"redraw:insert_line: %@", event_data);
-            [self.windowViewController.textView  redraw_insert_line:event_data];
-        }];
+        [self subscribeTextViewEvent:@"redraw:delete_line"
+                            selector:@selector(redraw_delete_line:)];
 
-        [self.client subscribeEvent:@"redraw:delete_line"
-                           callback:^(id error, id event_data) {
-            // NSLog(@"redraw:delete_line: %@", event_data);
-            [self.windowViewController.textView  redraw_delete_line:event_data];
-        }];
+        [self subscribeTextViewEvent:@"redraw:insert_line"
+                            selector:@selector(redraw_insert_line:)];
 
-        [self.client subscribeEvent:@"redraw:win_end"
-                           callback:^(id error, id event_data) {
-            // NSLog(@"redraw:win_end: %@", event_data);
-            [self.windowViewController.textView redraw_window_end:event_data];
-        }];
+        [self subscribeTextViewEvent:@"redraw:win_end"
+                            selector:@selector(redraw_window_end:)];
 
-        [self.client subscribeEvent:@"redraw:cursor"
-                           callback:^(id error, id event_data) {
-          // NSLog(@"redraw:cursor: %@", event_data);
-            [self.windowViewController.textView  redraw_cursor:event_data];
-        }];
+        [self subscribeTextViewEvent:@"redraw:cursor"
+                            selector:@selector(redraw_cursor:)];
 
         [self.client subscribeEvent:@"redraw:layout"
                            callback:^(id error, id event_data) {
             NSLog(@"redraw:layout: %@", event_data);
-
-            NSView *windowView = self.windowViewController.view;
-            [self.contentView.subviews.lastObject removeFromSuperview];
-            [self.contentView addSubview:windowView];
-            windowView.translatesAutoresizingMaskIntoConstraints = NO;
-            NSDictionary *views = NSDictionaryOfVariableBindings(windowView);
-
-            [self.contentView addConstraints:
-                [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[windowView]|"
-                                                        options:0
-                                                        metrics:nil
-                                                          views:views]];
-            [self.contentView addConstraints:
-                [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[windowView]|"
-                                                        options:0
-                                                        metrics:nil
-                                                          views:views]];
-                                
-            [self.windowViewController redraw_layout:event_data];
+            [self redraw_layout:event_data];
         }];
 
         [self.client subscribeEvent:@"redraw:tabs"
@@ -108,10 +82,87 @@
             // NSLog(@"redraw:tabs: %@", result);
         }];
 
-        [self.client callMethod:@"vim_request_screen"
-                         params:nil
-                       callback:^(id error, id result) { }];
+        // TODO(stefan991): handle event subscription callback instead of waiting
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(200 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
+            [self.client callMethod:@"vim_request_screen"
+                             params:nil
+                           callback:^(id error, id result) { }];
+        });
     }];
+}
+
+- (void)subscribeTextViewEvent:(NSString *)eventName
+                      selector:(SEL)selector
+{
+    NVMCallback callback = ^(id error, id eventData) {
+        NSNumber *windowID = eventData[@"window_id"];
+        NVMWindowViewController *viewController =
+            self.windowViewControllers[windowID];
+        if (viewController) {
+            [viewController.textView performSelector:selector
+                                          withObject:eventData];
+        } else {
+            NSLog(@"window id not found");
+        }
+    };
+    [self.client subscribeEvent:eventName
+                       callback:callback];
+}
+
+- (void)redraw_layout:(NSDictionary *)event_data
+{
+    // TODO(stefan991): cleanup self.windowViewControllers after layout
+    NSView *view = [self viewForNode:event_data];
+
+    [view removeFromSuperview];
+    [self.contentView.subviews.lastObject removeFromSuperview];
+    [self.contentView addSubview:view];
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    NSDictionary *views = NSDictionaryOfVariableBindings(view);
+    [self.contentView addConstraints:
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
+                                                options:0
+                                                metrics:nil
+                                                  views:views]];
+    [self.contentView addConstraints:
+        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
+                                                options:0
+                                                metrics:nil
+                                                  views:views]];
+}
+
+- (NSView *)viewForNode:(NSDictionary *)node
+{
+    NSString *type = node[@"type"];
+    if ([type isEqualToString:@"leaf"]) {
+        NSNumber *windowID = node[@"window_id"];
+        NVMWindowViewController *viewController =
+            self.windowViewControllers[windowID];
+        if (!viewController) {
+            viewController = [NVMWindowViewController new];
+            self.windowViewControllers[windowID] = viewController;
+        }
+        // remove from supervriew before setting the size,
+        // avoids mutally exclusive constraints
+        [viewController.view removeFromSuperview];
+        [viewController redraw_layout:node];
+        return viewController.view;
+    }
+
+    NSMutableArray *subViews = [NSMutableArray new];
+    for (NSDictionary *subNode in node[@"children"]) {
+        [subViews addObject:[self viewForNode:subNode]];
+    }
+
+    if ([type isEqualToString:@"column"]) {
+        return [[NVMSplitView alloc] initWithSubviews:subViews
+                                            direction:NVMSplitViewHorizontal];
+    } else if ([type isEqualToString:@"row"]) {
+        return [[NVMSplitView alloc] initWithSubviews:subViews
+                                            direction:NVMSplitViewVertical];
+    }
+    NSLog(@"invalid redraw:layout node: %@", node);
+    return nil;
 }
 
 @end

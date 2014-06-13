@@ -45,10 +45,10 @@
                                                   views:views]];
 }
 
-- (void)redraw_layout:(NSDictionary *)event_data
+- (void)redraw_layout:(NSDictionary *)layoutNode
 {
-    NSNumber *height = event_data[@"height"];
-    NSNumber *width = event_data[@"width"];
+    NSNumber *height = layoutNode[@"height"];
+    NSNumber *width = layoutNode[@"width"];
     NSSize cellSize = self.textView.cellSize;
     self.textViewHeight.constant = height.intValue * cellSize.height;
     self.textViewWidth.constant = width.intValue * cellSize.width;
