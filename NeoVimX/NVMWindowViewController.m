@@ -51,7 +51,7 @@
     NSNumber *width = layoutNode[@"width"];
     NSSize cellSize = self.textView.cellSize;
     self.textViewHeight.constant = height.intValue * cellSize.height;
-    self.textViewWidth.constant = width.intValue * cellSize.width;
+    self.textViewWidth.constant = ceil(width.doubleValue * cellSize.width);
 }
 
 @end

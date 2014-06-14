@@ -40,6 +40,10 @@
 
 - (void)initCommon
 {
+    // Remove the margin around the text inside the textview.
+    self.textContainerInset = NSMakeSize(0, 0);
+    self.textContainer.lineFragmentPadding = 0;
+
     self.string = @"";
     NSFont *font = [NSFont fontWithName:@"Menlo" size:13.0];
     self.baseAttributes = @{NSFontAttributeName: font};
@@ -177,12 +181,11 @@
 - (NSSize)cellSize
 {
     NSFont *font = self.baseAttributes[NSFontAttributeName];
-
     float advance = [@"m" sizeWithAttributes:self.baseAttributes].width;
     float lineHeight = [self.layoutManager defaultLineHeightForFont:font];
     NSSize cellSize;
     cellSize.height = lineHeight;
-    cellSize.width = ceil(advance);
+    cellSize.width = advance;
     return cellSize;
 }
 
