@@ -40,6 +40,11 @@
 
 - (void)initCommon
 {
+    // Disable line wrapping as it causes flicker while resizing.
+    // The real line wrapping is handled by nvim.
+    self.textContainer.containerSize = NSMakeSize(FLT_MAX, FLT_MAX);
+    self.textContainer.widthTracksTextView = NO;
+
     // Remove the margin around the text inside the textview.
     self.textContainerInset = NSMakeSize(0, 0);
     self.textContainer.lineFragmentPadding = 0;
