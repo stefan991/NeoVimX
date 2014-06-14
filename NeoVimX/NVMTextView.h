@@ -11,8 +11,6 @@
 
 @interface NVMTextView : NSTextView
 
-@property (readonly) NSSize cellSize;
-
 - (void)redraw_foreground_color:(NSDictionary *)event_data;
 - (void)redraw_background_color:(NSDictionary *)event_data;
 - (void)redraw_update_line:(NSDictionary *)event_data;

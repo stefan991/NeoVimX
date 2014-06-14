@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class NVMTextView;
+@class NVMClientWindowController;
 
 
 @interface NVMWindowViewController : NSViewController
@@ -18,6 +19,8 @@
 @property (weak) IBOutlet NSLayoutConstraint *textViewWidth;
 @property (weak) IBOutlet NSLayoutConstraint *textViewHeight;
 @property (strong) NVMTextView *textView;
+
+@property (weak) NVMClientWindowController *clientWindowController;
 
 - (void)redraw_layout:(NSDictionary *)layoutNode;
 

@@ -8,6 +8,7 @@
 
 #import "NVMWindowViewController.h"
 #import "NVMTextView.h"
+#import "NVMClientWindowController.h"
 
 
 @interface NVMWindowViewController ()
@@ -49,7 +50,7 @@
 {
     NSNumber *height = layoutNode[@"height"];
     NSNumber *width = layoutNode[@"width"];
-    NSSize cellSize = self.textView.cellSize;
+    NSSize cellSize = self.clientWindowController.cellSize;
     self.textViewHeight.constant = height.intValue * cellSize.height;
     self.textViewWidth.constant = ceil(width.doubleValue * cellSize.width);
 }

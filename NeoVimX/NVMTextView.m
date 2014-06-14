@@ -183,17 +183,6 @@
     [self setSelectedRange:range];
 }
 
-- (NSSize)cellSize
-{
-    NSFont *font = self.baseAttributes[NSFontAttributeName];
-    float advance = [@"m" sizeWithAttributes:self.baseAttributes].width;
-    float lineHeight = [self.layoutManager defaultLineHeightForFont:font];
-    NSSize cellSize;
-    cellSize.height = lineHeight;
-    cellSize.width = advance;
-    return cellSize;
-}
-
 - (NSRange)getRangeForLine:(int)lineNumber
 {
     NSString *string = self.textStorage.string;

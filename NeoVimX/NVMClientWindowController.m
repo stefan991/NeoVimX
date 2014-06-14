@@ -140,6 +140,7 @@
             self.windowViewControllers[windowID];
         if (!viewController) {
             viewController = [NVMWindowViewController new];
+            viewController.clientWindowController = self;
             self.windowViewControllers[windowID] = viewController;
         }
         // remove from supervriew before setting the size,
@@ -163,6 +164,19 @@
     }
     NSLog(@"invalid redraw:layout node: %@", node);
     return nil;
+}
+
+- (NSSize)cellSize
+{
+    NSFont *font = [NSFont fontWithName:@"Menlo" size:13.0];
+    NSDictionary *baseAttributes = @{NSFontAttributeName: font};
+    float advance = [@"m" sizeWithAttributes:baseAttributes].width;
+    NSLayoutManager *layoutManager = [NSLayoutManager new];
+    float lineHeight = [layoutManager defaultLineHeightForFont:font];
+    NSSize cellSize;
+    cellSize.height = lineHeight;
+    cellSize.width = advance;
+    return cellSize;
 }
 
 @end

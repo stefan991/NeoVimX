@@ -17,4 +17,6 @@
 
 @property (retain) NVMClient *client;
 
+@property (readonly) NSSize cellSize;
+
 @end
