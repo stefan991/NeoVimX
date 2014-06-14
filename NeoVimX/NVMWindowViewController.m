@@ -53,6 +53,7 @@
     NSSize cellSize = self.clientWindowController.cellSize;
     self.textViewHeight.constant = height.intValue * cellSize.height;
     self.textViewWidth.constant = ceil(width.doubleValue * cellSize.width);
+    self.statusLineHeight.constant = cellSize.height;
 }
 
 @end

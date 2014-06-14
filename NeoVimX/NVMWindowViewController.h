@@ -18,6 +18,8 @@
 @property (weak) IBOutlet NSView *contentView;
 @property (weak) IBOutlet NSLayoutConstraint *textViewWidth;
 @property (weak) IBOutlet NSLayoutConstraint *textViewHeight;
+@property (weak) IBOutlet NSLayoutConstraint *statusLineHeight;
+
 @property (strong) NVMTextView *textView;
 
 @property (weak) NVMClientWindowController *clientWindowController;

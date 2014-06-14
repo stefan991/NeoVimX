@@ -7,6 +7,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="NVMWindowViewController">
             <connections>
                 <outlet property="contentView" destination="V6z-eA-UhE" id="ktv-Xl-5ob"/>
+                <outlet property="statusLineHeight" destination="TTQ-4U-7Vd" id="9Na-wD-3QG"/>
                 <outlet property="textViewHeight" destination="sWm-7J-bXd" id="LH8-ZC-wFo"/>
                 <outlet property="textViewWidth" destination="kQX-lu-fNd" id="Ewd-wW-QxO"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -26,34 +27,22 @@
                         <constraint firstAttribute="height" constant="258" id="sWm-7J-bXd"/>
                     </constraints>
                 </customView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wE3-vA-gjm">
-                    <rect key="frame" x="-2" y="0.0" width="38" height="17"/>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="ABF-Ae-Wba">
+                    <rect key="frame" x="0.0" y="0.0" width="401" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="t0X-Np-4xE">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ceZ-Qs-zun">
-                    <rect key="frame" x="363" y="0.0" width="38" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="nrR-wd-Hp2">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="TTQ-4U-7Vd"/>
+                    </constraints>
+                </customView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="ceZ-Qs-zun" secondAttribute="trailing" constant="2" id="5cw-h6-n68"/>
-                <constraint firstItem="ceZ-Qs-zun" firstAttribute="top" secondItem="V6z-eA-UhE" secondAttribute="bottom" constant="3" id="8T9-9b-QXQ"/>
-                <constraint firstItem="wE3-vA-gjm" firstAttribute="leading" secondItem="V6z-eA-UhE" secondAttribute="leading" id="F0b-XT-idR"/>
+                <constraint firstAttribute="bottom" secondItem="ABF-Ae-Wba" secondAttribute="bottom" id="DAf-rE-Tht"/>
                 <constraint firstItem="V6z-eA-UhE" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="FgQ-aX-h12"/>
-                <constraint firstItem="wE3-vA-gjm" firstAttribute="top" secondItem="V6z-eA-UhE" secondAttribute="bottom" constant="3" id="HWg-ae-Hxi"/>
-                <constraint firstAttribute="bottom" secondItem="V6z-eA-UhE" secondAttribute="bottom" constant="20" id="R0P-6g-Xn2"/>
+                <constraint firstItem="ABF-Ae-Wba" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="H9Q-Tg-U75"/>
                 <constraint firstItem="V6z-eA-UhE" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="U2D-Kh-mT3"/>
                 <constraint firstAttribute="trailing" secondItem="V6z-eA-UhE" secondAttribute="trailing" id="Vpa-dR-XMH"/>
+                <constraint firstAttribute="trailing" secondItem="ABF-Ae-Wba" secondAttribute="trailing" id="X3v-De-6ch"/>
+                <constraint firstItem="ABF-Ae-Wba" firstAttribute="top" secondItem="V6z-eA-UhE" secondAttribute="bottom" id="if4-FG-lV4"/>
             </constraints>
         </customView>
     </objects>
