@@ -12,9 +12,31 @@
 
 - (instancetype)initWithSubviews:(NSArray *)subviews
                        direction:(NVMSplitViewDirection)direction
+                        cellSize:(NSSize)cellSize
 {
     self = [self initWithFrame:NSMakeRect(0, 0, 100, 100)];
     if (self) {
+        if (direction == NVMSplitViewVertical && subviews.count > 1) {
+            // insert seperator views
+            NSMutableArray *newSubviews = [NSMutableArray new];
+            for (int i = 0; i < subviews.count - 1; i++) {
+                [newSubviews addObject:subviews[i]];
+                NSView *seperator =
+                    [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 10, 10)];
+                [newSubviews addObject:seperator];
+                NSLayoutConstraint *widthConstraint =
+                    [NSLayoutConstraint constraintWithItem:seperator
+                                                 attribute:NSLayoutAttributeWidth
+                                                 relatedBy:NSLayoutRelationEqual
+                                                    toItem:nil
+                                                 attribute:NSLayoutAttributeNotAnAttribute
+                                                multiplier:1.0
+                                                  constant:ceil(cellSize.width)];
+                [self addConstraint:widthConstraint];
+            }
+            [newSubviews addObject: subviews.lastObject];
+            subviews = newSubviews;
+        }
         NSView *lastView;
         NSDictionary *views;
         BOOL horizontal = (direction == NVMSplitViewHorizontal);

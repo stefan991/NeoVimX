@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, NVMSplitViewDirection) {
 @property NVMSplitViewDirection directon;
 
 - (instancetype)initWithSubviews:(NSArray *)subviews
-                       direction:(NVMSplitViewDirection)direction;
+                       direction:(NVMSplitViewDirection)direction
+                        cellSize:(NSSize)cellSize;
 
 @end

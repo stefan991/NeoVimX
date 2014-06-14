@@ -73,7 +73,7 @@
 
         [self.client subscribeEvent:@"redraw:layout"
                            callback:^(id error, id event_data) {
-            NSLog(@"redraw:layout: %@", event_data);
+            // NSLog(@"redraw:layout: %@", event_data);
             [self redraw_layout:event_data];
         }];
 
@@ -157,10 +157,12 @@
 
     if ([type isEqualToString:@"column"]) {
         return [[NVMSplitView alloc] initWithSubviews:subViews
-                                            direction:NVMSplitViewHorizontal];
+                                            direction:NVMSplitViewHorizontal
+                                             cellSize:self.cellSize];
     } else if ([type isEqualToString:@"row"]) {
         return [[NVMSplitView alloc] initWithSubviews:subViews
-                                            direction:NVMSplitViewVertical];
+                                            direction:NVMSplitViewVertical
+                                             cellSize:self.cellSize];
     }
     NSLog(@"invalid redraw:layout node: %@", node);
     return nil;
