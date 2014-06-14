@@ -6,6 +6,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NVMClientWindowController">
             <connections>
+                <outlet property="commandLineHeight" destination="tpw-de-0FU" id="9ty-qD-d5L"/>
                 <outlet property="contentView" destination="LaT-Zb-JS8" id="9zC-rN-czK"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -22,15 +23,25 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="LaT-Zb-JS8">
-                        <rect key="frame" x="20" y="20" width="440" height="230"/>
+                        <rect key="frame" x="3" y="23" width="474" height="244"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="8nV-Az-Avz">
+                        <rect key="frame" x="3" y="3" width="474" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="tpw-de-0FU"/>
+                        </constraints>
                     </customView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="LaT-Zb-JS8" secondAttribute="bottom" constant="20" id="VRN-Lo-ZCZ"/>
-                    <constraint firstItem="LaT-Zb-JS8" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="20" id="bIz-wF-SYp"/>
-                    <constraint firstAttribute="trailing" secondItem="LaT-Zb-JS8" secondAttribute="trailing" constant="20" id="gHw-Lr-yP1"/>
-                    <constraint firstItem="LaT-Zb-JS8" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" id="gys-P3-pfV"/>
+                    <constraint firstAttribute="bottom" secondItem="8nV-Az-Avz" secondAttribute="bottom" constant="3" id="725-kC-1bu"/>
+                    <constraint firstItem="8nV-Az-Avz" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="3" id="Dxm-nT-aRQ"/>
+                    <constraint firstAttribute="trailing" secondItem="8nV-Az-Avz" secondAttribute="trailing" constant="3" id="Esx-XG-GHW"/>
+                    <constraint firstItem="8nV-Az-Avz" firstAttribute="top" secondItem="LaT-Zb-JS8" secondAttribute="bottom" id="Jhl-w3-buN"/>
+                    <constraint firstItem="LaT-Zb-JS8" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="3" id="bIz-wF-SYp"/>
+                    <constraint firstAttribute="trailing" secondItem="LaT-Zb-JS8" secondAttribute="trailing" constant="3" id="gHw-Lr-yP1"/>
+                    <constraint firstItem="LaT-Zb-JS8" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="3" id="gys-P3-pfV"/>
                 </constraints>
             </view>
             <connections>

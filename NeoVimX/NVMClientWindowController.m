@@ -111,6 +111,7 @@
 
 - (void)redraw_layout:(NSDictionary *)event_data
 {
+    self.commandLineHeight.constant = self.cellSize.height;
     // TODO(stefan991): cleanup self.windowViewControllers after layout
     NSView *view = [self viewForNode:event_data];
 
