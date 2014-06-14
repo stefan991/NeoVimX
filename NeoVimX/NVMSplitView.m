@@ -44,8 +44,11 @@
                                                               views:views]];
             }
             views = NSDictionaryOfVariableBindings(view);
-            format = horizontal ? @"H:|[view]|"
-                                : @"V:|[view]|";
+            // If the subviews are not equal in width/height, ensure that
+            // the spacing to the superview is >=0 and try to set it to 0 with
+            // a high prirority.
+            format = horizontal ? @"H:|[view]-(>=0,0@900)-|"
+                                : @"V:|[view]-(>=0,0@900)-|";
             [self addConstraints:
                 [NSLayoutConstraint constraintsWithVisualFormat:format
                                                         options:0
