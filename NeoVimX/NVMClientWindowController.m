@@ -40,50 +40,71 @@
 
     [self.client discoverApi:^(id error, id result) {
 
-        [self.client subscribeEvent:@"redraw:foreground_color"
-                           callback:^(id error, id eventData) {
-            [self.windowViewControllers enumerateKeysAndObjectsUsingBlock:
-                ^(id key, NVMWindowViewController *controller, BOOL *stop) {
-                [controller.textView redraw_foreground_color:eventData];
-            }];
-        }];
+        dispatch_group_t subscribeGroup = dispatch_group_create();
+        NVMCallback groupLeaveHandler = ^(id error, id eventData) {
+            dispatch_group_leave(subscribeGroup);
+        };
 
-        [self.client subscribeEvent:@"redraw:background_color"
-                           callback:^(id error, id eventData) {
+        NVMCallback foregroundColorCallback = ^(id error, id eventData) {
             [self.windowViewControllers enumerateKeysAndObjectsUsingBlock:
                 ^(id key, NVMWindowViewController *controller, BOOL *stop) {
-                [controller.textView redraw_background_color:eventData];
+                    [controller.textView redraw_foreground_color:eventData];
             }];
-        }];
+        };
+        dispatch_group_enter(subscribeGroup);
+        [self.client subscribeEvent:@"redraw:foreground_color"
+                      eventCallback:foregroundColorCallback
+                  completionHandler:groupLeaveHandler];
+
+        NVMCallback backgroundColorCallback = ^(id error, id eventData) {
+            [self.windowViewControllers enumerateKeysAndObjectsUsingBlock:
+             ^(id key, NVMWindowViewController *controller, BOOL *stop) {
+                 [controller.textView redraw_background_color:eventData];
+             }];
+        };
+        dispatch_group_enter(subscribeGroup);
+        [self.client subscribeEvent:@"redraw:background_color"
+                      eventCallback:backgroundColorCallback
+                  completionHandler:groupLeaveHandler];
 
         [self subscribeTextViewEvent:@"redraw:update_line"
-                            selector:@selector(redraw_update_line:)];
+                            selector:@selector(redraw_update_line:)
+                               group:subscribeGroup];
 
         [self subscribeTextViewEvent:@"redraw:delete_line"
-                            selector:@selector(redraw_delete_line:)];
+                            selector:@selector(redraw_delete_line:)
+                               group:subscribeGroup];
 
         [self subscribeTextViewEvent:@"redraw:insert_line"
-                            selector:@selector(redraw_insert_line:)];
+                            selector:@selector(redraw_insert_line:)
+                               group:subscribeGroup];
 
         [self subscribeTextViewEvent:@"redraw:win_end"
-                            selector:@selector(redraw_window_end:)];
+                            selector:@selector(redraw_window_end:)
+                               group:subscribeGroup];
 
         [self subscribeTextViewEvent:@"redraw:cursor"
-                            selector:@selector(redraw_cursor:)];
+                            selector:@selector(redraw_cursor:)
+                               group:subscribeGroup];
 
+        NVMCallback layoutCallback = ^(id error, id eventData) {
+            [self redraw_layout:eventData];
+        };
+        dispatch_group_enter(subscribeGroup);
         [self.client subscribeEvent:@"redraw:layout"
-                           callback:^(id error, id event_data) {
-            // NSLog(@"redraw:layout: %@", event_data);
-            [self redraw_layout:event_data];
-        }];
+                      eventCallback:layoutCallback
+                  completionHandler:groupLeaveHandler];
 
+
+        NVMCallback tabsCallback = ^(id error, id eventData) {
+            // NSLog(@"redraw:tabs: %@", eventData);
+        };
+        dispatch_group_enter(subscribeGroup);
         [self.client subscribeEvent:@"redraw:tabs"
-                           callback:^(id error, id result) {
-            // NSLog(@"redraw:tabs: %@", result);
-        }];
+                      eventCallback:tabsCallback
+                  completionHandler:groupLeaveHandler];
 
-        // TODO(stefan991): handle event subscription callback instead of waiting
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(200 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
+        dispatch_group_notify(subscribeGroup, dispatch_get_main_queue(), ^(){
             [self.client callMethod:@"vim_request_screen"
                              params:nil
                            callback:^(id error, id result) { }];
@@ -93,8 +114,9 @@
 
 - (void)subscribeTextViewEvent:(NSString *)eventName
                       selector:(SEL)selector
+                         group:(dispatch_group_t)group
 {
-    NVMCallback callback = ^(id error, id eventData) {
+    NVMCallback eventCallback = ^(id error, id eventData) {
         NSNumber *windowID = eventData[@"window_id"];
         NVMWindowViewController *viewController =
             self.windowViewControllers[windowID];
@@ -105,8 +127,12 @@
             NSLog(@"window id not found");
         }
     };
+    dispatch_group_enter(group);
     [self.client subscribeEvent:eventName
-                       callback:callback];
+                  eventCallback:eventCallback
+              completionHandler:^(id error, id result) {
+        dispatch_group_leave(group);
+    }];
 }
 
 - (void)redraw_layout:(NSDictionary *)event_data

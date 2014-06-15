@@ -23,6 +23,7 @@ typedef void (^NVMCallback)(id error, id result);
           callback:(NVMCallback)callback;
 
 - (void)subscribeEvent:(NSString *)eventName
-              callback:(NVMCallback)callback;
+         eventCallback:(NVMCallback)eventCallback
+     completionHandler:(NVMCallback)completionHandler;
 
 @end

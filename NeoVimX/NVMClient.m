@@ -117,18 +117,19 @@
 }
 
 - (void)subscribeEvent:(NSString *)eventName
-              callback:(NVMCallback)callback
+         eventCallback:(NVMCallback)eventCallback
+     completionHandler:(NVMCallback)completionHandler
 {
     dispatch_async(self.internalQueue, ^{
         NSMutableArray *callbacks = self.eventCallbacks[eventName];
         if (callbacks) {
-            [callbacks addObject:callback];
+            [callbacks addObject:eventCallback];
         } else {
             [self callMethod:@"vim_subscribe"
                       params:@[eventName]
-                    callback:^(id error, id result) {}];
+                    callback:completionHandler];
 
-            callbacks = [NSMutableArray arrayWithObject:callback];
+            callbacks = [NSMutableArray arrayWithObject:eventCallback];
             self.eventCallbacks[eventName] = callbacks;
         }
     });
