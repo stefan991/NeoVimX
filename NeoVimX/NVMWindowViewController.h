@@ -24,6 +24,6 @@
 
 @property (weak) NVMClientWindowController *clientWindowController;
 
-- (void)redraw_layout:(NSDictionary *)layoutNode;
+- (void)redrawLayout:(NSDictionary *)layoutNode;
 
 @end

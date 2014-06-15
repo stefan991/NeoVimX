@@ -11,12 +11,12 @@
 
 @interface NVMTextView : NSTextView
 
-- (void)redraw_foreground_color:(NSDictionary *)event_data;
-- (void)redraw_background_color:(NSDictionary *)event_data;
-- (void)redraw_update_line:(NSDictionary *)event_data;
-- (void)redraw_insert_line:(NSDictionary *)event_data;
-- (void)redraw_delete_line:(NSDictionary *)event_data;
-- (void)redraw_window_end:(NSDictionary *)event_data;
-- (void)redraw_cursor:(NSDictionary *)event_data;
+- (void)redrawForegroundColor:(NSDictionary *)eventData;
+- (void)redrawBackgroundColor:(NSDictionary *)eventData;
+- (void)redrawUpdateLine:(NSDictionary *)eventData;
+- (void)redrawInsertLine:(NSDictionary *)eventData;
+- (void)redrawDeleteLine:(NSDictionary *)eventData;
+- (void)redrawWindowEnd:(NSDictionary *)eventData;
+- (void)redrawCursor:(NSDictionary *)eventData;
 
 @end

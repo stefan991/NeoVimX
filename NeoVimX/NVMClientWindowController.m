@@ -96,7 +96,7 @@
                    group:subscribeGroup];
 
     [self subscribeEvent:@"redraw:layout"
-                selector:@selector(redraw_layout:)
+                selector:@selector(redrawLayout:)
                    group:subscribeGroup];
 
     [self subscribeEvent:@"redraw:tabs"
@@ -105,23 +105,23 @@
 
     // subscribe to events handled by the textviews:
     [self subscribeTextViewEvent:@"redraw:update_line"
-                        selector:@selector(redraw_update_line:)
+                        selector:@selector(redrawUpdateLine:)
                            group:subscribeGroup];
 
     [self subscribeTextViewEvent:@"redraw:delete_line"
-                        selector:@selector(redraw_delete_line:)
+                        selector:@selector(redrawDeleteLine:)
                            group:subscribeGroup];
 
     [self subscribeTextViewEvent:@"redraw:insert_line"
-                        selector:@selector(redraw_insert_line:)
+                        selector:@selector(redrawInsertLine:)
                            group:subscribeGroup];
 
     [self subscribeTextViewEvent:@"redraw:win_end"
-                        selector:@selector(redraw_window_end:)
+                        selector:@selector(redrawWindowEnd:)
                            group:subscribeGroup];
 
     [self subscribeTextViewEvent:@"redraw:cursor"
-                        selector:@selector(redraw_cursor:)
+                        selector:@selector(redrawCursor:)
                            group:subscribeGroup];
 
     // request the screen after all events are subscribed
@@ -136,7 +136,7 @@
 {
     [self.windowViewControllers enumerateKeysAndObjectsUsingBlock:
         ^(id key, NVMWindowViewController *controller, BOOL *stop) {
-            [controller.textView redraw_foreground_color:eventData];
+            [controller.textView redrawForegroundColor:eventData];
     }];
 }
 
@@ -144,7 +144,7 @@
 {
     [self.windowViewControllers enumerateKeysAndObjectsUsingBlock:
         ^(id key, NVMWindowViewController *controller, BOOL *stop) {
-            [controller.textView redraw_background_color:eventData];
+            [controller.textView redrawBackgroundColor:eventData];
     }];
 }
 
@@ -153,11 +153,11 @@
     // NSLog(@"redraw:tabs: %@", eventData);
 }
 
-- (void)redraw_layout:(NSDictionary *)event_data
+- (void)redrawLayout:(NSDictionary *)eventData
 {
     self.commandLineHeight.constant = self.cellSize.height;
     // TODO(stefan991): cleanup self.windowViewControllers after layout
-    NSView *view = [self viewForNode:event_data];
+    NSView *view = [self viewForNode:eventData];
 
     [view removeFromSuperview];
     [self.contentView.subviews.lastObject removeFromSuperview];
@@ -191,7 +191,7 @@
         // remove from supervriew before setting the size,
         // avoids mutally exclusive constraints
         [viewController.view removeFromSuperview];
-        [viewController redraw_layout:node];
+        [viewController redrawLayout:node];
         return viewController.view;
     }
 

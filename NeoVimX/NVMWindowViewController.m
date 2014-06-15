@@ -46,7 +46,7 @@
                                                   views:views]];
 }
 
-- (void)redraw_layout:(NSDictionary *)layoutNode
+- (void)redrawLayout:(NSDictionary *)layoutNode
 {
     NSNumber *height = layoutNode[@"height"];
     NSNumber *width = layoutNode[@"width"];

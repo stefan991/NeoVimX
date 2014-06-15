@@ -55,9 +55,9 @@
     self.attributesCache = [NSMutableDictionary new];
 }
 
-- (void)redraw_foreground_color:(NSDictionary *)event_data
+- (void)redrawForegroundColor:(NSDictionary *)eventData
 {
-    NSString *colorSharp = event_data[@"color"];
+    NSString *colorSharp = eventData[@"color"];
     NSColor *color;
     if ([colorSharp length] == 7) {
         color = [NSColor NVM_colorWithHexColorString:
@@ -70,9 +70,9 @@
     self.baseAttributes = [newbaseAttributes copy];
 }
 
-- (void)redraw_background_color:(NSDictionary *)event_data
+- (void)redrawBackgroundColor:(NSDictionary *)eventData
 {
-    NSString *colorSharp = event_data[@"color"];
+    NSString *colorSharp = eventData[@"color"];
     NSColor *color;
     if ([colorSharp length] == 7) {
         color = [NSColor NVM_colorWithHexColorString:
@@ -83,12 +83,12 @@
     [self setBackgroundColor:color];
 }
 
-- (void)redraw_update_line:(NSDictionary *)event_data
+- (void)redrawUpdateLine:(NSDictionary *)eventData
 {
-    NSNumber *row = event_data[@"row"];
+    NSNumber *row = eventData[@"row"];
     NSRange lineRange = [self getRangeForLine:row.intValue + 1];
     NSMutableString *updatedLine = [@"" mutableCopy];
-    NSArray *sections = event_data[@"line"];
+    NSArray *sections = eventData[@"line"];
     for (NSDictionary *section in sections) {
         [updatedLine appendString:section[@"content"]];
     }
@@ -100,7 +100,7 @@
     [self.textStorage setAttributes:self.baseAttributes
                               range:newRange];
 
-    NSDictionary *attributes = event_data[@"attributes"];
+    NSDictionary *attributes = eventData[@"attributes"];
     for (NSString *attrName in attributes) {
         NSDictionary *textAttributes = [self getAttributesForName:attrName];
         for (id attrPosition in attributes[attrName]) {
@@ -126,10 +126,10 @@
 
 }
 
-- (void)redraw_insert_line:(NSDictionary *)event_data
+- (void)redrawInsertLine:(NSDictionary *)eventData
 {
-    NSNumber *row = event_data[@"row"];
-    NSNumber *count = event_data[@"count"];
+    NSNumber *row = eventData[@"row"];
+    NSNumber *count = eventData[@"count"];
     for (int i = 0; i < count.intValue; i++) {
         NSRange lineRange = [self getRangeForLine:row.intValue + 1];
         NSAttributedString *attrString =
@@ -141,23 +141,23 @@
     }
 }
 
-- (void)redraw_delete_line:(NSDictionary *)event_data
+- (void)redrawDeleteLine:(NSDictionary *)eventData
 {
-    NSNumber *row = event_data[@"row"];
-    NSNumber *count = event_data[@"count"];
+    NSNumber *row = eventData[@"row"];
+    NSNumber *count = eventData[@"count"];
     for (int i = 0; i < count.intValue; i++) {
         NSRange lineRange = [self getRangeForLine:row.intValue + 1];
         [self.textStorage replaceCharactersInRange:lineRange withString:@""];
     }
 }
 
-- (void)redraw_window_end:(NSDictionary *)event_data
+- (void)redrawWindowEnd:(NSDictionary *)eventData
 {
-    NSNumber *row = event_data[@"row"];
-    NSNumber *endRow = event_data[@"endrow"];
+    NSNumber *row = eventData[@"row"];
+    NSNumber *endRow = eventData[@"endrow"];
     NSAssert(row.integerValue >= 0, @"row not positive");
     NSAssert(row.integerValue >= 0, @"endrow not positive");
-    NSString *marker = event_data[@"marker"];
+    NSString *marker = eventData[@"marker"];
     // TODO(stefan991) handle fill
     for (int line = row.intValue; line < endRow.intValue; line++) {
         NSRange lineRange = [self getRangeForLine:line + 1];
@@ -173,10 +173,10 @@
     [self.textStorage deleteCharactersInRange:afterEnd];
 }
 
-- (void)redraw_cursor:(NSDictionary *)event_data
+- (void)redrawCursor:(NSDictionary *)eventData
 {
-    NSNumber *row = event_data[@"row"];
-    NSNumber *col = event_data[@"col"];
+    NSNumber *row = eventData[@"row"];
+    NSNumber *col = eventData[@"col"];
     NSRange startOfLine = [self getRangeForLine:row.intValue + 1];
     NSRange range = NSMakeRange(startOfLine.location + col.intValue, 0);
     [self.window makeFirstResponder:self];
