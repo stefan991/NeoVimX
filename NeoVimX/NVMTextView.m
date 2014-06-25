@@ -55,32 +55,16 @@
     self.attributesCache = [NSMutableDictionary new];
 }
 
-- (void)redrawForegroundColor:(NSDictionary *)eventData
+- (NSColor *)foregroundColor
 {
-    NSString *colorSharp = eventData[@"color"];
-    NSColor *color;
-    if ([colorSharp length] == 7) {
-        color = [NSColor NVM_colorWithHexColorString:
-                    [colorSharp substringFromIndex:1]];
-    } else {
-        color = [NSColor blackColor];
-    }
+    return self.baseAttributes[NSForegroundColorAttributeName];
+}
+
+- (void)setForegroundColor:(NSColor *)color
+{
     NSMutableDictionary *newbaseAttributes = [self.baseAttributes mutableCopy];
     newbaseAttributes[NSForegroundColorAttributeName] = color;
     self.baseAttributes = [newbaseAttributes copy];
-}
-
-- (void)redrawBackgroundColor:(NSDictionary *)eventData
-{
-    NSString *colorSharp = eventData[@"color"];
-    NSColor *color;
-    if ([colorSharp length] == 7) {
-        color = [NSColor NVM_colorWithHexColorString:
-                    [colorSharp substringFromIndex:1]];
-    } else {
-        color = [NSColor whiteColor];
-    }
-    [self setBackgroundColor:color];
 }
 
 - (void)redrawUpdateLine:(NSDictionary *)eventData

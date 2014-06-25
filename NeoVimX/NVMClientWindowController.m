@@ -11,6 +11,7 @@
 #import "NVMTextView.h"
 #import "NVMWindowViewController.h"
 #import "NVMSplitView.h"
+#import "NSColor+NeoVimX.h"
 
 
 @interface NVMClientWindowController ()
@@ -134,17 +135,31 @@
 
 - (void)redrawForegroundColor:(NSDictionary *)eventData
 {
+    NSString *colorSharp = eventData[@"color"];
+    if ([colorSharp length] == 7) {
+        self.foregroundColor = [NSColor NVM_colorWithHexColorString:
+                                    [colorSharp substringFromIndex:1]];
+    } else {
+        self.foregroundColor = [NSColor blackColor];
+    }
     [self.windowViewControllers enumerateKeysAndObjectsUsingBlock:
         ^(id key, NVMWindowViewController *controller, BOOL *stop) {
-            [controller.textView redrawForegroundColor:eventData];
+            controller.textView.foregroundColor = self.foregroundColor;
     }];
 }
 
 - (void)redrawBackgroundColor:(NSDictionary *)eventData
 {
+    NSString *colorSharp = eventData[@"color"];
+    if ([colorSharp length] == 7) {
+        self.backgroundColor = [NSColor NVM_colorWithHexColorString:
+                                    [colorSharp substringFromIndex:1]];
+    } else {
+        self.backgroundColor = [NSColor whiteColor];
+    }
     [self.windowViewControllers enumerateKeysAndObjectsUsingBlock:
         ^(id key, NVMWindowViewController *controller, BOOL *stop) {
-            [controller.textView redrawBackgroundColor:eventData];
+            controller.textView.backgroundColor = self.backgroundColor;
     }];
 }
 
@@ -186,6 +201,9 @@
         if (!viewController) {
             viewController = [NVMWindowViewController new];
             viewController.clientWindowController = self;
+            [viewController loadView];
+            viewController.textView.foregroundColor = self.foregroundColor;
+            viewController.textView.backgroundColor = self.backgroundColor;
             self.windowViewControllers[windowID] = viewController;
         }
         // remove from supervriew before setting the size,

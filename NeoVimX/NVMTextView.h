@@ -11,8 +11,8 @@
 
 @interface NVMTextView : NSTextView
 
-- (void)redrawForegroundColor:(NSDictionary *)eventData;
-- (void)redrawBackgroundColor:(NSDictionary *)eventData;
+@property (strong) NSColor *foregroundColor;
+
 - (void)redrawUpdateLine:(NSDictionary *)eventData;
 - (void)redrawInsertLine:(NSDictionary *)eventData;
 - (void)redrawDeleteLine:(NSDictionary *)eventData;

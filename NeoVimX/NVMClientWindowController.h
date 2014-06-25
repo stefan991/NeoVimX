@@ -19,5 +19,7 @@
 @property (retain) NVMClient *client;
 
 @property (readonly) NSSize cellSize;
+@property (strong) NSColor *foregroundColor;
+@property (strong) NSColor *backgroundColor;
 
 @end
