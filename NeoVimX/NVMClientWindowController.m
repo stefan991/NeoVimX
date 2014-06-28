@@ -53,9 +53,9 @@
                    withObject:eventData];
     };
     dispatch_group_enter(group);
-    [self.client subscribeEvent:eventName
-                  eventCallback:eventCallback
-              completionHandler:^(id error, id result) {
+    [self.client subscribeRedrawEvent:eventName
+                        eventCallback:eventCallback
+                    completionHandler:^(id error, id result) {
         dispatch_group_leave(group);
     }];
 }
@@ -76,9 +76,9 @@
         }
     };
     dispatch_group_enter(group);
-    [self.client subscribeEvent:eventName
-                  eventCallback:eventCallback
-              completionHandler:^(id error, id result) {
+    [self.client subscribeRedrawEvent:eventName
+                        eventCallback:eventCallback
+                    completionHandler:^(id error, id result) {
         dispatch_group_leave(group);
     }];
 }

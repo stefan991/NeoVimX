@@ -26,4 +26,8 @@ typedef void (^NVMCallback)(id error, id result);
          eventCallback:(NVMCallback)eventCallback
      completionHandler:(NVMCallback)completionHandler;
 
+- (void)subscribeRedrawEvent:(NSString *)eventName
+               eventCallback:(NVMCallback)eventCallback
+           completionHandler:(NVMCallback)completionHandler;
+
 @end
