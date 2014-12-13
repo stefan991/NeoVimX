@@ -56,7 +56,7 @@ static int template_execute(template_context* ctx,
 
 
 static inline msgpack_object template_callback_root(unpack_user* u)
-{ msgpack_object o = {}; return o; }
+{ msgpack_object o = { MSGPACK_OBJECT_NIL }; return o; }
 
 static inline int template_callback_uint8(unpack_user* u, uint8_t d, msgpack_object* o)
 { o->type = MSGPACK_OBJECT_POSITIVE_INTEGER; o->via.u64 = d; return 0; }
@@ -71,19 +71,19 @@ static inline int template_callback_uint64(unpack_user* u, uint64_t d, msgpack_o
 { o->type = MSGPACK_OBJECT_POSITIVE_INTEGER; o->via.u64 = d; return 0; }
 
 static inline int template_callback_int8(unpack_user* u, int8_t d, msgpack_object* o)
-{ if(d >= 0) { o->type = MSGPACK_OBJECT_POSITIVE_INTEGER; o->via.u64 = d; return 0; }
+{ if(d >= 0) { o->type = MSGPACK_OBJECT_POSITIVE_INTEGER; o->via.u64 = (uint64_t)d; return 0; }
 		else { o->type = MSGPACK_OBJECT_NEGATIVE_INTEGER; o->via.i64 = d; return 0; } }
 
 static inline int template_callback_int16(unpack_user* u, int16_t d, msgpack_object* o)
-{ if(d >= 0) { o->type = MSGPACK_OBJECT_POSITIVE_INTEGER; o->via.u64 = d; return 0; }
+{ if(d >= 0) { o->type = MSGPACK_OBJECT_POSITIVE_INTEGER; o->via.u64 = (uint64_t)d; return 0; }
 		else { o->type = MSGPACK_OBJECT_NEGATIVE_INTEGER; o->via.i64 = d; return 0; } }
 
 static inline int template_callback_int32(unpack_user* u, int32_t d, msgpack_object* o)
-{ if(d >= 0) { o->type = MSGPACK_OBJECT_POSITIVE_INTEGER; o->via.u64 = d; return 0; }
+{ if(d >= 0) { o->type = MSGPACK_OBJECT_POSITIVE_INTEGER; o->via.u64 = (uint64_t)d; return 0; }
 		else { o->type = MSGPACK_OBJECT_NEGATIVE_INTEGER; o->via.i64 = d; return 0; } }
 
 static inline int template_callback_int64(unpack_user* u, int64_t d, msgpack_object* o)
-{ if(d >= 0) { o->type = MSGPACK_OBJECT_POSITIVE_INTEGER; o->via.u64 = d; return 0; }
+{ if(d >= 0) { o->type = MSGPACK_OBJECT_POSITIVE_INTEGER; o->via.u64 = (uint64_t)d; return 0; }
 		else { o->type = MSGPACK_OBJECT_NEGATIVE_INTEGER; o->via.i64 = d; return 0; } }
 
 static inline int template_callback_float(unpack_user* u, float d, msgpack_object* o)
@@ -111,7 +111,15 @@ static inline int template_callback_array(unpack_user* u, unsigned int n, msgpac
 }
 
 static inline int template_callback_array_item(unpack_user* u, msgpack_object* c, msgpack_object o)
-{ c->via.array.ptr[c->via.array.size++] = o; return 0; }
+{
+#if defined(__GNUC__) && !defined(__clang__)
+	memcpy(&c->via.array.ptr[c->via.array.size], &o, sizeof(msgpack_object));
+#else  /* __GNUC__ && !__clang__ */
+	c->via.array.ptr[c->via.array.size] = o;
+#endif /* __GNUC__ && !__clang__ */
+	++c->via.array.size;
+	return 0;
+}
 
 static inline int template_callback_map(unpack_user* u, unsigned int n, msgpack_object* o)
 {
@@ -124,8 +132,13 @@ static inline int template_callback_map(unpack_user* u, unsigned int n, msgpack_
 
 static inline int template_callback_map_item(unpack_user* u, msgpack_object* c, msgpack_object k, msgpack_object v)
 {
+#if defined(__GNUC__) && !defined(__clang__)
+	memcpy(&c->via.map.ptr[c->via.map.size].key, &k, sizeof(msgpack_object));
+	memcpy(&c->via.map.ptr[c->via.map.size].val, &v, sizeof(msgpack_object));
+#else  /* __GNUC__ && !__clang__ */
 	c->via.map.ptr[c->via.map.size].key = k;
 	c->via.map.ptr[c->via.map.size].val = v;
+#endif /* __GNUC__ && !__clang__ */
 	++c->via.map.size;
 	return 0;
 }
@@ -462,3 +475,9 @@ bool msgpack_unpack_next(msgpack_unpacked* result,
 	return true;
 }
 
+#if defined(MSGPACK_OLD_COMPILER_BUS_ERROR_WORKAROUND)
+// FIXME: Dirty hack to avoid a bus error caused by OS X's old gcc.
+static void dummy_function_to_avoid_bus_error()
+{
+}
+#endif

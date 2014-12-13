@@ -372,6 +372,28 @@ msgpack_pack_inline_func(_int64)(msgpack_pack_user x, int64_t d)
 	msgpack_pack_real_int64(x, d);
 }
 
+msgpack_pack_inline_func(_char)(msgpack_pack_user x, char d)
+{
+#if defined(CHAR_MIN)
+#if CHAR_MIN < 0
+		msgpack_pack_real_int8(x, d);
+#else
+		msgpack_pack_real_uint8(x, d);
+#endif
+#else
+#error CHAR_MIN is not defined
+#endif
+}
+
+msgpack_pack_inline_func(_signed_char)(msgpack_pack_user x, signed char d)
+{
+	msgpack_pack_real_int8(x, d);
+}
+
+msgpack_pack_inline_func(_unsigned_char)(msgpack_pack_user x, unsigned char d)
+{
+	msgpack_pack_real_uint8(x, d);
+}
 
 #ifdef msgpack_pack_inline_func_cint
 
@@ -634,19 +656,24 @@ if(sizeof(unsigned long long) == 2) {
 
 msgpack_pack_inline_func(_float)(msgpack_pack_user x, float d)
 {
+	unsigned char buf[5];
 	union { float f; uint32_t i; } mem;
 	mem.f = d;
-	unsigned char buf[5];
 	buf[0] = 0xca; _msgpack_store32(&buf[1], mem.i);
 	msgpack_pack_append_buffer(x, buf, 5);
 }
 
 msgpack_pack_inline_func(_double)(msgpack_pack_user x, double d)
 {
+	unsigned char buf[9];
 	union { double f; uint64_t i; } mem;
 	mem.f = d;
-	unsigned char buf[9];
-	buf[0] = 0xcb; _msgpack_store64(&buf[1], mem.i);
+	buf[0] = 0xcb;
+#if defined(__arm__) && !(__ARM_EABI__) // arm-oabi
+    // https://github.com/msgpack/msgpack-perl/pull/1
+    mem.i = (mem.i & 0xFFFFFFFFUL) << 32UL | (mem.i >> 32UL);
+#endif
+    _msgpack_store64(&buf[1], mem.i);
 	msgpack_pack_append_buffer(x, buf, 9);
 }
 
@@ -683,10 +710,10 @@ msgpack_pack_inline_func(_false)(msgpack_pack_user x)
  * Array
  */
 
-msgpack_pack_inline_func(_array)(msgpack_pack_user x, unsigned int n)
+msgpack_pack_inline_func(_array)(msgpack_pack_user x, size_t n)
 {
 	if(n < 16) {
-		unsigned char d = 0x90 | n;
+		unsigned char d = 0x90 | (uint8_t)n;
 		msgpack_pack_append_buffer(x, &d, 1);
 	} else if(n < 65536) {
 		unsigned char buf[3];
@@ -704,10 +731,10 @@ msgpack_pack_inline_func(_array)(msgpack_pack_user x, unsigned int n)
  * Map
  */
 
-msgpack_pack_inline_func(_map)(msgpack_pack_user x, unsigned int n)
+msgpack_pack_inline_func(_map)(msgpack_pack_user x, size_t n)
 {
 	if(n < 16) {
-		unsigned char d = 0x80 | n;
+		unsigned char d = 0x80 | (uint8_t)n;
 		msgpack_pack_append_buffer(x, &TAKE8_8(d), 1);
 	} else if(n < 65536) {
 		unsigned char buf[3];
@@ -728,7 +755,7 @@ msgpack_pack_inline_func(_map)(msgpack_pack_user x, unsigned int n)
 msgpack_pack_inline_func(_raw)(msgpack_pack_user x, size_t l)
 {
 	if(l < 32) {
-		unsigned char d = 0xa0 | l;
+		unsigned char d = 0xa0 | (uint8_t)l;
 		msgpack_pack_append_buffer(x, &TAKE8_8(d), 1);
 	} else if(l < 65536) {
 		unsigned char buf[3];
