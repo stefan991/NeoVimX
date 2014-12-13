@@ -26,9 +26,6 @@
 @property (strong) NSMutableDictionary *eventCallbacks;
 @property (strong) NSDictionary *apiClasses;
 @property (strong) NSDictionary *apiFunctions;
-@property BOOL redrawStartEndSubscribed;
-@property (strong) NSMutableDictionary *redrawCallbacks;
-@property (strong) NSMutableArray *bufferdReadrawCallbacks;
 
 @end
 
@@ -50,9 +47,6 @@
         self.eventCallbacks = [NSMutableDictionary new];
         self.apiClasses = nil;
         self.apiFunctions = nil;
-        self.redrawStartEndSubscribed = NO;
-        self.redrawCallbacks = [NSMutableDictionary new];
-        self.bufferdReadrawCallbacks = nil;
     }
     return self;
 }
@@ -125,96 +119,26 @@
 }
 
 - (void)subscribeEvent:(NSString *)eventName
-         eventCallback:(NVMCallback)eventCallback
      completionHandler:(NVMCallback)completionHandler
 {
     dispatch_async(self.internalQueue, ^{
-        NSMutableArray *callbacks = self.eventCallbacks[eventName];
-        if (callbacks) {
-            [callbacks addObject:eventCallback];
-        } else {
-            [self callMethod:@"vim_subscribe"
-                      params:@[eventName]
-                    callback:completionHandler];
-
-            callbacks = [NSMutableArray arrayWithObject:eventCallback];
-            self.eventCallbacks[eventName] = callbacks;
-        }
+        [self callMethod:@"vim_subscribe"
+                  params:@[eventName]
+                callback:completionHandler];
     });
 }
 
-- (void)subscribeRedrawEvent:(NSString *)eventName
-               eventCallback:(NVMCallback)eventCallback
-           completionHandler:(NVMCallback)completionHandler
+- (void)handleEvent:(NSString *)eventName
+      eventCallback:(NVMCallback)eventCallback
 {
-    dispatch_async(self.internalQueue, ^{
+    NSMutableArray *callbacks = self.eventCallbacks[eventName];
+    if (callbacks) {
+        [callbacks addObject:eventCallback];
+    } else {
+        callbacks = [NSMutableArray arrayWithObject:eventCallback];
+        self.eventCallbacks[eventName] = callbacks;
+    }
 
-        dispatch_group_t startEndGroup = dispatch_group_create();
-
-        // subscribe to 'redraw:{start,stop}' if not already done
-        if (!self.redrawStartEndSubscribed) {
-            // TODO(stefan991): the next two calls dispatch to the main queue,
-            //                  remove this extra dispatch
-            dispatch_group_enter(startEndGroup);
-            [self callMethod:@"vim_subscribe"
-                      params:@[@"redraw:start"]
-                    callback:^(id error, id result) {
-                dispatch_group_leave(startEndGroup);
-            }];
-            dispatch_group_enter(startEndGroup);
-            [self callMethod:@"vim_subscribe"
-                      params:@[@"redraw:end"]
-                    callback:^(id error, id result) {
-                dispatch_group_leave(startEndGroup);
-            }];
-            self.redrawStartEndSubscribed = YES;
-        }
-        // subscribe the redraw event
-        dispatch_group_notify(startEndGroup, self.internalQueue, ^(){
-
-            NVMCallback internalCallback = ^(id error, id eventData) {
-                if (self.bufferdReadrawCallbacks) {
-                    [self.bufferdReadrawCallbacks addObject:^{
-                        eventCallback(nil, eventData);
-                    }];
-                } else {
-                    dispatch_async(self.callbackQueue, ^{
-                        eventCallback(nil, eventData);
-                    });
-                }
-            };
-
-            NSMutableArray *callbacks = self.redrawCallbacks[eventName];
-            if (callbacks) {
-                [callbacks addObject:internalCallback];
-            } else {
-                [self callMethod:@"vim_subscribe"
-                          params:@[eventName]
-                        callback:completionHandler];
-
-                callbacks = [NSMutableArray arrayWithObject:internalCallback];
-                self.redrawCallbacks[eventName] = callbacks;
-            }
-        });
-    });
-}
-
-- (void)handleRedrawStart
-{
-    NSAssert(self.bufferdReadrawCallbacks == nil,
-             @"Nested 'redraw:start' events");
-    self.bufferdReadrawCallbacks = [NSMutableArray new];
-}
-
-- (void)handleRedrawEnd
-{
-    NSArray *callbacks = self.bufferdReadrawCallbacks;
-    self.bufferdReadrawCallbacks = nil;
-    dispatch_async(self.callbackQueue, ^{
-        for (dispatch_block_t callback in callbacks) {
-            callback();
-        }
-    });
 }
 
 - (void)readabilityHandler:(NSFileHandle *)stream
@@ -255,21 +179,7 @@
     if ([type isEqualToNumber:@(2)]) {  // notification
         NSString *eventName = message[1];
         // NSLog(@"Event: %@", eventName);
-        if ([eventName isEqualToString:@"redraw:start"]) {
-            [self handleRedrawStart];
-        }
-        if ([eventName isEqualToString:@"redraw:end"]) {
-            [self handleRedrawEnd];
-        }
         id data = message[2];
-
-        // handle redraw events on internal queue
-        NSMutableArray *redrawCallbacks = self.redrawCallbacks[eventName];
-        for (NVMCallback callback in redrawCallbacks) {
-            callback(nil, data);
-        }
-
-        // handle normal events on callback queue
         NSMutableArray *callbacks = self.eventCallbacks[eventName];
         if (callbacks) {
             NSArray *callbacksCopy = [callbacks copy];

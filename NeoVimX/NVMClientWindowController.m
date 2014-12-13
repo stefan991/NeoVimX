@@ -49,35 +49,21 @@
     [self.client connectTo:@"/tmp/nvim"];
 
     [self.client discoverApi:^(id error, id result) {
-        [self subscribeRedrawEvents];
+        [self attachUI];
     }];
 }
 
-- (void)subscribeEvent:(NSString *)eventName
-              selector:(SEL)selector
-                 group:(dispatch_group_t)group
+- (void)attachUI
 {
-    NVMCallback eventCallback = ^(id error, id eventData) {
-        [self performSelector:selector
-                   withObject:eventData];
-    };
-    dispatch_group_enter(group);
-    [self.client subscribeRedrawEvent:eventName
-                        eventCallback:eventCallback
-                    completionHandler:^(id error, id result) {
-        dispatch_group_leave(group);
+    [self.client handleEvent:@"redraw" eventCallback:^(id error, id result) {
+        NSLog(@"redraw handled");
     }];
-}
 
-
-- (void)subscribeRedrawEvents
-{
-    dispatch_group_t subscribeGroup = dispatch_group_create();
-
-    // request the screen after all events are subscribed
-    dispatch_group_notify(subscribeGroup, dispatch_get_main_queue(), ^(){
-
-    });
+    [self.client callMethod:@"attach_ui"
+                     params:@[@(80), @(24)]
+                   callback:^(id error, id result) {
+        NSLog(@"attached");
+    }];
 }
 
 - (NSSize)cellSize
