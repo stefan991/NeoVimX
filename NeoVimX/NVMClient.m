@@ -83,7 +83,10 @@
 - (void)discoverApi:(NVMCallback)callback
 {
     dispatch_async(self.internalQueue, ^{
-        [self callMethodID:0 params:nil callback:^(id error, id result) {
+        [self callMethod:@"vim_get_api_info"
+                  params:nil
+                callback:^(id error, id result) {
+
             if (error) {
                 dispatch_async(self.callbackQueue, ^{
                     callback(error, nil);
@@ -111,14 +114,14 @@
             params:(NSArray *)params
           callback:(NVMCallback)callback
 {
+    if (!params) {
+        params = @[];
+    }
     dispatch_async(self.internalQueue, ^{
-        NSNumber *methodID = self.apiFunctions[methodName][@"id"];
-        if (methodID.intValue) {
-            [self callMethodID:methodID.intValue
-                        params:params
-                      callback:callback];
-        }
-        // TODO(stefan991): error handling
+        int requestID = self.nextRequestID++;
+        NSArray *apiCall = @[@0, @(requestID), methodName, params];
+        self.callbacks[@(requestID)] = callback;
+        [self.stream writeData:[apiCall messagePack]];
     });
 }
 
@@ -215,19 +218,6 @@
     });
 }
 
-- (void)callMethodID:(int)methodID
-              params:(NSArray *)params
-            callback:(NVMCallback)callback
-{
-    if (!params) {
-        params = @[];
-    }
-    int requestID = self.nextRequestID++;
-    NSArray *apiCall = @[@0, @(requestID), @(methodID), params];
-    self.callbacks[@(requestID)] = callback;
-    [self.stream writeData:[apiCall messagePack]];
-}
-
 - (void)readabilityHandler:(NSFileHandle *)stream
 {
     NSData *data = [stream availableData];
@@ -235,6 +225,7 @@
         [self.parser feed:data];
         NSArray *message;
         while ((message = [self.parser next])) {
+            // TODO: see why parsing failes 
             [self handleMessage:message];
         }
     });
