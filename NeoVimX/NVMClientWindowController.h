@@ -14,7 +14,6 @@
 @interface NVMClientWindowController : NSWindowController
 
 @property (weak) IBOutlet NSView *contentView;
-@property (weak) IBOutlet NSLayoutConstraint *commandLineHeight;
 
 @property (retain) NVMClient *client;
 
