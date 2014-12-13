@@ -94,8 +94,7 @@
                 return;
             }
             self.channelID = ((NSNumber *)result[0]).intValue;
-            NSData *apiRaw = result[1];
-            NSDictionary *api = [apiRaw messagePackParse];
+            NSDictionary *api = result[1];
             self.apiClasses = [api[@"classes"] copy];
             NSArray *apiFunctionsArray = api[@"functions"];
             NSMutableDictionary *apiFunctions = [NSMutableDictionary new];
