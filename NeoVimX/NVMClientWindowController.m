@@ -37,7 +37,7 @@
     [super windowDidLoad];
 
     self.client = [NVMClient new];
-    [self.client connectTo:@"/tmp/neovim"];
+    [self.client connectTo:@"/tmp/nvim"];
 
     [self.client discoverApi:^(id error, id result) {
         [self subscribeRedrawEvents];
