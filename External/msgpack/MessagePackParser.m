@@ -69,6 +69,8 @@
         }
             break;
         case MSGPACK_OBJECT_NIL:
+            return [NSNull null]; // Since nsnull is a system singleton, we don't have to worry about ownership of it
+            break;
         default:
             return [NSNull null]; // Since nsnull is a system singleton, we don't have to worry about ownership of it
             break;
